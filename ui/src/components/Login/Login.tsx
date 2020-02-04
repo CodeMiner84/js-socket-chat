@@ -9,7 +9,7 @@ interface Props {
     nickname?: string;
 }
 
-export default function SignUp(props: Props) {
+export default function Login(props: Props) {
     const [nickName, setNickName] = useState();
 
     return (
