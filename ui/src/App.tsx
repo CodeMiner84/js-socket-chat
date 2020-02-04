@@ -5,12 +5,12 @@ import useSocket from 'use-socket.io-client';
 import Login from './components/Login';
 import { withRouter } from "react-router";
 
-const App = (props: any) => {
+const ENDPOINT = process.env.REACT_APP_API_URL
 
+const App = (props: any) => {
   const [nickname, setNickName] = useState('');
   const [messages, setMessage] = useState([]);
-  const [input, setInput] = useState('');
-  const ENDPOINT = 'http://localhost:8080';
+  const [input, setInput] = useState('');;
   const [socket] = useSocket(ENDPOINT)
 
   function handleSetNickName (nickname: any) {
