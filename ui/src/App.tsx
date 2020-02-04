@@ -13,15 +13,12 @@ const App = (props: any) => {
   const ENDPOINT = 'http://localhost:8080';
   const [socket] = useSocket(ENDPOINT)
 
-  socket.connect();
-console.log('nickname@@@', nickname);
   function handleSetNickName (nickname: any) {
     setNickName(nickname);
   }
 
-  console.log('props', props);
-
   useEffect(()=>{
+    socket.connect();
     socket.on('message', (data: any) => {
       console.log('incoming message', data)
     });
