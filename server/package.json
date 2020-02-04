@@ -1,0 +1,65 @@
+{
+  "name": "express-es6-sample",
+  "version": "0.2.0",
+  "private": true,
+  "author": {
+    "name": "Jonathan Cunanan",
+    "url": "https://github.com/jcunanan05"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@types/socket.io-client": "^1.4.32",
+    "babel-polyfill": "^6.26.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~4.1.1",
+    "engine.io": "~3.4.0",
+    "express": "~4.17.1",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.2",
+    "npm-run-all": "^4.1.5",
+    "redis": "^2.8.0",
+    "rimraf": "^3.0.1",
+    "socket.io": "^2.3.0",
+    "socket.io-adapter": "~1.1.0",
+    "socket.io-client": "2.3.0",
+    "socket.io-parser": "~3.4.0"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0"
+  },
+  "nodemonConfig": {
+    "exec": "npm run dev",
+    "watch": [
+      "server/*",
+      "public/*"
+    ],
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "start2": "npm run prod",
+    "build": "npm-run-all clean transpile",
+    "server": "node ./dist-server/app",
+    "dev": "NODE_ENV=development npm-run-all build server",
+    "start": "NODE_ENV=development npm-run-all build server",
+    "prod": "NODE_ENV=production npm-run-all build server",
+    "transpile": "babel ./server --out-dir dist-server",
+    "clean": "rimraf dist-server",
+    "watch:dev": "nodemon",
+    "test": "jest"
+  }
+}
