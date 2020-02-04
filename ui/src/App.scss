@@ -40,6 +40,17 @@ button.MuiButton-root {
     margin-top: 20px;
   }
 }
+
+#chat {
+  height: 100vh;
+  > div {
+    height: 100vh;
+    > div.MuiGrid-item {
+      height: 100vh;
+    }
+  }
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;

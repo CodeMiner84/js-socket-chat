@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.scss';
 import useSocket from 'use-socket.io-client';
 import Login from './components/Login';
+import Chat from './components/Chat';
 import { withRouter } from "react-router";
 
 const ENDPOINT = process.env.REACT_APP_API_URL
@@ -30,20 +31,7 @@ const App = (props: any) => {
           <Login setNickName={handleSetNickName} nickname={nickname} />
         }
         {nickname !== '' &&
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <p>
-            <button onClick={() => {
-              setInput('asdasd');
-              socket.emit('sendMessage', {room: input});
-            }}>TEST
-            </button>
-            {/*<input type="text" onChange={(e) => setInput(e.target.value)}/>*/}
-          </p>
-          {messages.map(item => {
-            return <div>{item}</div>
-          })}
-        </header>
+            <Chat nickName={nickname} />
         }
       </div>
   );
