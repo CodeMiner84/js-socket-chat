@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
-import './App.scss';
+import { withRouter } from "react-router";
 import useSocket from 'use-socket.io-client';
 import Login from './components/Login';
 import Chat from './components/Chat';
-import { withRouter } from "react-router";
+import './App.scss';
 
 const ENDPOINT = process.env.REACT_APP_API_URL
 
-const App = (props: any) => {
+const App = () => {
   const [nickname, setNickName] = useState('');
-  const [messages, setMessage] = useState([]);
-  const [input, setInput] = useState('');;
   const [socket] = useSocket(ENDPOINT)
 
   function handleSetNickName (nickname: any) {
