@@ -1,6 +1,23 @@
 $black: #000;
 $white: #FFF;
 
+html {
+  box-sizing: border-box;
+}
+
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+html, body, #root {
+  padding: 0px !important;;
+  margin: 0px !important;;
+  height: 100vh;;
+  width: 100vw;
+}
+
 body.dark {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -12,9 +29,10 @@ body.dark {
 }
 
 div.App {
-  height: 100vh;
+  height: 100vh;;
+  box-sizing: border-box;
   main {
-    height: 100vh;
+    height: 100vh;;
   }
 }
 
@@ -32,9 +50,9 @@ button.MuiButton-root {
 
 .Login {
   max-width: 200px;
-  height: 100vh;
+  height: 100vh;;
   form {
-    height: 100vh;
+    height: 100vh;;
   }
   .login-submit {
     margin-top: 20px;
@@ -42,12 +60,19 @@ button.MuiButton-root {
 }
 
 #chat {
-  height: 100vh;
+  height: 100vh;;
+  margin: 10px auto;
   > div {
-    height: 100vh;
+    height: 100vh;;
     > div.MuiGrid-item {
       height: 100vh;
     }
+  }
+
+  .chat-box {
+    height: 100vh;;
+    width: 100%;
+    background: $white;
   }
 }
 

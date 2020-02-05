@@ -10,15 +10,21 @@ interface Props {
 export default function Chat({ nickName }: Props) {
     return (
     <Container id="chat" className="Login" component="main" fixed>
-        <Grid container spacing={3}>
-            <Grid item xs>
-                <Paper >xs</Paper>
+        <Grid container spacing={1}>
+            <Grid item xs={12} lg={3}>
+                <div className="chat-box">
+
+                </div>
             </Grid>
-            <Grid item xs>
-                <Paper >xs</Paper>
+            <Grid item xs={12} lg={6}>
+                <div className="chat-box">
+
+                </div>
             </Grid>
-            <Grid item xs>
-                <Paper >xs</Paper>
+            <Grid item xs={12} lg={3}>
+                <div className="chat-box">
+
+                </div>
             </Grid>
         </Grid>
     </Container>
