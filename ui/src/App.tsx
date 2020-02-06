@@ -12,9 +12,9 @@ const App = () => {
   const [nickname, setNickName] = useState('');
   const [socket] = useSocket(ENDPOINT);
 
-  function handleSetNickName(nickname: any) {
-    setNickName(nickname);
-    localStorage.setItem(config.nickName, nickname);
+  function handleSetNickName(newNickname: any) {
+    setNickName(newNickname);
+    localStorage.setItem(config.nickName, newNickname);
   }
 
   useEffect(() => {
@@ -23,9 +23,7 @@ const App = () => {
       setNickName(nickNameFromStorage);
     }
     socket.connect();
-    socket.on('message', (data: any) => {
-      console.log('incoming message', data);
-    });
+    socket.on('message', (data: any) => {});
   }, [socket]);
 
   return (
@@ -36,4 +34,4 @@ const App = () => {
   );
 };
 
-export default (App);
+export default App;

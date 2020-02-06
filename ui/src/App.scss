@@ -57,6 +57,14 @@ button.MuiButton-root {
   .login-submit {
     margin-top: 20px;
   }
+
+  #login-alert {
+    margin-bottom: 20px;
+  }
+
+  .MuiAlert-message {
+    color: $white;
+  }
 }
 
 #chat {

@@ -3,13 +3,11 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Switch } from 'react-router';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
 import createHistory from 'history/createBrowserHistory';
-
-export const history = createHistory();
+import App from './App';
 
 ReactDOM.render(
-  <Router history={history}>
+  <Router history={createHistory()}>
     <Route to="/" component={App} />
   </Router>,
   document.getElementById('root')
