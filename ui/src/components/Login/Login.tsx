@@ -4,11 +4,12 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { AppContext } from '../../AppProvider';
+import * as SocketIO from 'socket.io';
 
 interface Props {
   setNickName: (value: string) => void;
   nickname?: string;
-  socket: any;
+  socket: SocketIO.Server;
 }
 
 export default function Login(props: Props) {
