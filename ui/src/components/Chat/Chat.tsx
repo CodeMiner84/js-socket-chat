@@ -8,9 +8,10 @@ import Room from '../Room';
 
 interface Props {
   socket: SocketIO.Server;
+  onAddNewRoom: () => void;
 }
 
-export default function Chat({ socket }: Props) {
+export default function Chat({ socket, onAddNewRoom }: Props) {
   return (
     <Container id="chat" className="Login" component="main" fixed>
       <Grid container spacing={1}>
@@ -21,7 +22,7 @@ export default function Chat({ socket }: Props) {
           <div className="chat-box" />
         </Grid>
         <Grid item xs={12} lg={3}>
-          <Room socket={socket} />
+          <Room socket={socket} onAddNewRoom={onAddNewRoom} />
         </Grid>
       </Grid>
     </Container>

@@ -43,8 +43,9 @@ input.MuiInputBase-input {
   border: 1px solid $white;
   border-radius: 5px;
 }
-button.MuiButton-root {
+button.dark.MuiButton-root {
   background: $black;
+  color: $white;
   border: 1px solid $white;
 }
 
@@ -95,7 +96,6 @@ button.MuiButton-root {
       list-style-type: none;
     }
   }
-
 }
 
 code {

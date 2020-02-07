@@ -5,23 +5,23 @@ import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 import Container from '@material-ui/core/Container';
 import * as SocketIO from 'socket.io';
+import RoomDto from './Room.dto';
 
 interface Props {
-  setUser: (value: string) => void;
-  user?: string;
   socket: SocketIO.Server;
+  handleAddRoom: (newRoom: RoomDto) => void;
 }
 
-export default function Login({ socket, setUser, user }: Props) {
-  const [stateUser, changeUser] = useState();
+export default function AddNewRoom({ socket, handleAddRoom }: Props) {
+  const [stateRoom, saveRoomName] = useState();
   const [errorMessage, setErrorMessage] = useState('');
 
-  socket.on('userExist', () => {
+  socket.on('roomExist', () => {
     setErrorMessage('User already exists');
   });
 
-  socket.on('userAdded', (newUser: string) => {
-    setUser(newUser);
+  socket.on('roomAdded', (newRoom: RoomDto) => {
+    handleAddRoom(newRoom);
   });
 
   return (
@@ -31,21 +31,21 @@ export default function Login({ socket, setUser, user }: Props) {
           <Grid item xs={12} sm={6} lg={4}>
             {errorMessage && (
               <Alert id="login-alert" variant="outlined" severity="error">
-                Nickname already taken!
+                Room already taken!
               </Alert>
             )}
             <TextField
               required
               variant="filled"
               fullWidth
-              name="user"
-              label="Nickname"
+              name="room"
+              label="Room"
               type="text"
               id="password"
               autoComplete="current-password"
               className="flex"
               onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-                changeUser(e.target.value);
+                saveRoomName(e.target.value);
               }}
             />
             <Button
@@ -57,10 +57,10 @@ export default function Login({ socket, setUser, user }: Props) {
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 e.preventDefault();
                 setErrorMessage('');
-                socket.emit('setUser', { value: stateUser });
+                socket.emit('addRoom', { value: stateRoom });
               }}
             >
-              Set user
+              Add new room
             </Button>
           </Grid>
         </Grid>

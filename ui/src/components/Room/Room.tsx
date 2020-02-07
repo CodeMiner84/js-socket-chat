@@ -1,30 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import * as SocketIO from 'socket.io';
-import RoomDto from "./room.dto";
+import RoomDto from './Room.dto';
+import { getKey } from '../../utils/storage';
+import List from './List';
+import AddRoomButton from './AddRoomButton';
 
 interface Props {
   socket: SocketIO.Server;
+  onAddNewRoom: () => void;
 }
 
-export default function Room({ socket }: Props) {
-  const [rooms, setRooms] = useState();
-
-  socket.on('roomsFetched', (rooms: RoomDto[]) => {
-    setRooms(rooms);
-  });
-
-  useEffect(() => {
-    socket.emit('getRooms');
-  }, [socket]);
-
+export default function Room({ socket, onAddNewRoom }: Props) {
   return (
     <div id="rooms-list">
-      <div>Rooms list:</div>
-      <ul>
-        {rooms && rooms.map((room: any) => (
-          <li>{room.name}</li>
-        ))}
-      </ul>
+      <AddRoomButton onAddNewRoom={onAddNewRoom} />
+      <List socket={socket} />
     </div>
   );
 }
