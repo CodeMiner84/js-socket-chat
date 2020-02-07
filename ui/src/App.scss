@@ -84,7 +84,7 @@ button.MuiButton-root {
   }
 }
 
-#users-list {
+#users-list, #rooms-list {
   height: calc(100vh - 20px);
   width: 100%;
   background: $white;

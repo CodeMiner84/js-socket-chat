@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import * as SocketIO from 'socket.io';
 import UsersList from '../UsersList';
+import Room from '../Room';
 
 interface Props {
   socket: SocketIO.Server;
@@ -20,7 +21,7 @@ export default function Chat({ socket }: Props) {
           <div className="chat-box" />
         </Grid>
         <Grid item xs={12} lg={3}>
-          <div className="chat-box" />
+          <Room socket={socket} />
         </Grid>
       </Grid>
     </Container>

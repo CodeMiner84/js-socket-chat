@@ -7,6 +7,7 @@ import * as SocketIO from "socket.io";
 import redisClient from './redis-client';
 import { watchUsers } from "./modules/users";
 import {addUser} from "./redis/user";
+import {watchRooms} from "./modules/room/room.action";
 
 const app = express();
 const server: Server = createServer(app);
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', async function (socket: any) {
     await watchUsers(socket);
+    await watchRooms(socket);
 });
 
 
