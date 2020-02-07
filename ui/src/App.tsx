@@ -9,27 +9,26 @@ import './App.scss';
 const ENDPOINT = process.env.REACT_APP_API_URL;
 
 const App = () => {
-  const [nickname, setNickName] = useState('');
+  const [user, setUser] = useState('');
   const [socket] = useSocket(ENDPOINT);
 
-  function handleSetNickName(newNickname: any) {
-    setNickName(newNickname);
-    localStorage.setItem(config.nickName, newNickname);
+  function handleSetUser(newNickname: any) {
+    setUser(newNickname);
+    localStorage.setItem(config.user, newNickname);
   }
 
   useEffect(() => {
-    const nickNameFromStorage = localStorage.getItem(config.nickName);
-    if (nickNameFromStorage) {
-      setNickName(nickNameFromStorage);
+    const userFromStorage = localStorage.getItem(config.user);
+    if (userFromStorage) {
+      setUser(userFromStorage);
     }
     socket.connect();
-    socket.on('message', (data: any) => {});
   }, [socket]);
 
   return (
     <div className="App">
-      {nickname === '' && <Login setNickName={handleSetNickName} nickname={nickname} socket={socket} />}
-      {nickname !== '' && <Chat nickName={nickname} />}
+      {user === '' && <Login setUser={handleSetUser} user={user} socket={socket} />}
+      {user !== '' && <Chat socket={socket} />}
     </div>
   );
 };

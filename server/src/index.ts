@@ -5,8 +5,8 @@ import * as logger from 'morgan';
 import { Server, createServer } from 'http';
 import * as SocketIO from "socket.io";
 import redisClient from './redis-client';
-import { watchNickNames } from "./modules/users";
-import {addNickName} from "./redis/nickaname";
+import { watchUsers } from "./modules/users";
+import {addUser} from "./redis/user";
 
 const app = express();
 const server: Server = createServer(app);
@@ -22,7 +22,7 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', async function (socket: any) {
-    await watchNickNames(socket);
+    await watchUsers(socket);
 });
 
 

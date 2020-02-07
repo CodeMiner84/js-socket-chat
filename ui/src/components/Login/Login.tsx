@@ -7,21 +7,21 @@ import Container from '@material-ui/core/Container';
 import * as SocketIO from 'socket.io';
 
 interface Props {
-  setNickName: (value: string) => void;
-  nickname?: string;
+  setUser: (value: string) => void;
+  user?: string;
   socket: SocketIO.Server;
 }
 
-export default function Login({ socket, setNickName, nickname }: Props) {
-  const [nickName, changeNickName] = useState();
+export default function Login({ socket, setUser, user }: Props) {
+  const [stateUser, changeUser] = useState();
   const [errorMessage, setErrorMessage] = useState('');
 
-  socket.on('nickNameExist', () => {
-    setErrorMessage('NickName already exists');
+  socket.on('userExist', () => {
+    setErrorMessage('User already exists');
   });
 
-  socket.on('nickNameAdded', (newNickName: string) => {
-    setNickName(newNickName);
+  socket.on('userAdded', (newUser: string) => {
+    setUser(newUser);
   });
 
   return (
@@ -38,14 +38,14 @@ export default function Login({ socket, setNickName, nickname }: Props) {
               required
               variant="filled"
               fullWidth
-              name="nickname"
+              name="user"
               label="Nickname"
               type="text"
               id="password"
               autoComplete="current-password"
               className="flex"
               onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-                changeNickName(e.target.value);
+                changeUser(e.target.value);
               }}
             />
             <Button
@@ -57,10 +57,10 @@ export default function Login({ socket, setNickName, nickname }: Props) {
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 e.preventDefault();
                 setErrorMessage('');
-                socket.emit('setNickName', { value: nickName });
+                socket.emit('setUser', { value: stateUser });
               }}
             >
-              Set nickname
+              Set user
             </Button>
           </Grid>
         </Grid>

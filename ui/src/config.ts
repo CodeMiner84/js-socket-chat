@@ -1,5 +1,5 @@
 const config = {
-  nickName: 'nickName',
+  user: 'user',
 };
 
 export default config;

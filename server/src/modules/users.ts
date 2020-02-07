@@ -1,16 +1,25 @@
 import * as SocketIO from "socket.io";
-import {addNickName, getAllNickNames} from "../redis/nickaname";
-import NicknameDto from "../models/nickname.dto";
+import {addUser, getAllUsers} from "../redis/user";
+import UserDto from "../models/user.dto";
 import events from '../config/events';
 
-export async function watchNickNames (socket: SocketIO.Server) {
-  socket.on(events.SET_NICKNAME, async function (data: NicknameDto) {
+export async function watchUsers (socket: any) {
+  socket.on(events.SET_USER, async function (data: UserDto) {
     try {
-      await addNickName(data.value);
+      await addUser(data.value);
+      socket.join('test');
 
-      socket.emit(events.NICKNAME_ADDED, data.value);
+      socket.emit(events.USER_ADDED, data.value);
     } catch (error) {
-      socket.emit(events.NICKNAME_ALREADY_EXISTS);
+      socket.emit(events.USER_ALREADY_EXISTS);
+    }
+  });
+  socket.on(events.GET_USERS, async function () {
+    try {
+      console.log('pobieram userów');
+      socket.emit(events.USERS_FETCHED, await getAllUsers());
+    } catch (error) {
+      console.log('errrrrrr;');
     }
   });
 }

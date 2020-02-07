@@ -84,6 +84,20 @@ button.MuiButton-root {
   }
 }
 
+#users-list {
+  height: calc(100vh - 20px);
+  width: 100%;
+  background: $white;
+  padding: 10px;
+  ul {
+    padding-left: 10px;
+    li {
+      list-style-type: none;
+    }
+  }
+
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;
