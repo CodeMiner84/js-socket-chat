@@ -1,8 +1,9 @@
 import * as uuidv4 from 'uuid/v4';
 import * as SocketIO from "socket.io";
 import events from '../config/events';
-import {addRoom, getAllRooms} from "../modules/room/room.service";
+import {addRoom, getAllRooms} from "../redis/room";
 import InputDto from "../common/input.dto";
+import ChangeRoom from "../models/change.room.dto";
 
 export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket) {
   socket.on(events.ADD_ROOM, async function (input: InputDto) {

@@ -7,9 +7,11 @@ export default {
   USERS_FETCHED: 'usersFetched',
 
   //ROOMS
-  GET_ROOMS: 'getRooms',
   ADD_ROOM: 'addRoom',
-  ROOMS_FETCHED: 'roomsFetched',
+  CHANGE_ROOM: 'changeRoom',
+  GET_ROOMS: 'getRooms',
   ROOM_ADDED: 'roomAdded',
   ROOM_ALREADY_EXISTS: 'roomAlreadyExists',
+  ROOM_CHANGED: 'roomChanged',
+  ROOMS_FETCHED: 'roomsFetched',
 }

@@ -1,7 +1,7 @@
 import {Express} from "express";
 import {createServer, Server} from "http";
 import * as SocketIO from "socket.io";
-import {listenRooms} from "../modules/room/room.action";
+import {listenRooms} from "../listeners/room.listeners";
 import {listenUsers} from "../listeners/user.listeners";
 
 export default class SocketListener {
