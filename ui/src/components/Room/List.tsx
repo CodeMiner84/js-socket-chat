@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import RoomDto from './Room.dto';
-import {useChat} from "../../ChatContext";
+import { useChat } from '../../ChatContext';
 
 interface Props {
   rooms: RoomDto[];
@@ -11,7 +11,7 @@ export default function List({ rooms }: Props) {
 
   const onRoomChange = (roomId: string) => {
     chatContext.socket.emit('changeRoom', roomId);
-  }
+  };
 
   return (
     <div>

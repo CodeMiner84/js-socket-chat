@@ -8,9 +8,10 @@ import { useChat } from '../../ChatContext';
 
 interface Props {
   onAddNewRoom: () => void;
+  handleLogout: () => void;
 }
 
-export default function Chat({ onAddNewRoom }: Props) {
+export default function Chat({ onAddNewRoom, handleLogout }: Props) {
   const chatContext = useChat();
   const deafultState: RoomDto[] = [];
   const [rooms, setRooms] = useState(deafultState);
@@ -31,7 +32,7 @@ export default function Chat({ onAddNewRoom }: Props) {
     <Container id="chat" className="Login" component="main" fixed>
       <Grid container spacing={1}>
         <Grid item xs={12} lg={3}>
-          <UsersList />
+          <UsersList handleLogout={handleLogout} />
         </Grid>
         <Grid item xs={12} lg={6}>
           <div className="chat-box" />

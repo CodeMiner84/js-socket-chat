@@ -3,7 +3,7 @@ import { useChat } from '../../ChatContext';
 
 interface Props {}
 
-export default function UsersList({}: Props) {
+export default function List({}: Props) {
   const chatContext = useChat();
   const [users, setUsers] = useState([]);
 
@@ -16,13 +16,10 @@ export default function UsersList({}: Props) {
   }, [0]);
 
   return (
-    <div id="users-list">
-      <div>Users list:</div>
-      <ul>
-        {users.map((user: string) => (
-          <li>{user}</li>
-        ))}
-      </ul>
-    </div>
+    <ul>
+      {users.map((user: string) => (
+        <li>{user}</li>
+      ))}
+    </ul>
   );
 }

@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { withRouter } from 'react-router';
-import useSocket from 'use-socket.io-client';
 import Login from './components/Login';
 import Chat from './components/Chat';
 import config from './config';
@@ -8,10 +6,12 @@ import './App.scss';
 import AddNewRoom from './components/Room/AddNewRoom';
 import RoomDto from './components/Room/Room.dto';
 import { useChat } from './ChatContext';
+import User from './models/User';
 
 const App = () => {
   const chatContext = useChat();
-  const [user, setUser] = useState('');
+
+  const [user, setUser] = useState();
   const [roomAdding, settingNewRoom] = useState(false);
   useEffect(() => {
     const userFromStorage = localStorage.getItem(config.user);
@@ -27,9 +27,14 @@ const App = () => {
 
   chatContext.init();
 
-  const handleSetUser = (newNickname: any): void => {
-    setUser(newNickname);
-    localStorage.setItem(config.user, newNickname);
+  const handleSetUser = (newUser: User): void => {
+    setUser(newUser);
+    localStorage.setItem(config.user, newUser.id);
+  };
+
+  const handleLogout = () => {
+    setUser('');
+    localStorage.removeItem(config.user);
   };
 
   const handleAddNewRoom = (): void => {
@@ -49,8 +54,8 @@ const App = () => {
       {roomAdding && <AddNewRoom backToChat={backToChat} />}
       {!roomAdding && (
         <>
-          {user === '' && <Login setUser={handleSetUser} user={user} />}
-          {user !== '' && <Chat onAddNewRoom={handleAddNewRoom} />}
+          {user === undefined && <Login handleSetUser={handleSetUser} user={user} />}
+          {user && <Chat onAddNewRoom={handleAddNewRoom} handleLogout={handleLogout} />}
         </>
       )}
     </div>

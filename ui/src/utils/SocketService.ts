@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import config from '../config';
 
 export default class SocketService {
   public socket: SocketIOClient.Socket = {} as SocketIOClient.Socket;
@@ -11,7 +12,6 @@ export default class SocketService {
 
   public disconnect(): void {
     console.log('disconnecting');
-
     this.socket.emit('disconnect');
   }
 
