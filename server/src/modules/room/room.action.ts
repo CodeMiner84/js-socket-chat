@@ -1,11 +1,10 @@
 import * as uuidv4 from 'uuid/v4';
 import * as SocketIO from "socket.io";
 import events from '../../config/events';
-import RoomDto from "./room.dto";
 import {addRoom, getAllRooms} from "./room.service";
 import InputDto from "../../common/input.dto";
 
-export async function watchRooms (io: SocketIO.Server, socket: SocketIO.Socket) {
+export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket) {
   socket.on(events.ADD_ROOM, async function (room: InputDto) {
     try {
       await addRoom({
