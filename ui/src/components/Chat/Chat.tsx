@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import UsersList from '../UsersList';
 import Room from '../Room';
+import RoomDto from '../Room/Room.dto';
+import { useChat } from '../../ChatContext';
 
 interface Props {
   onAddNewRoom: () => void;
 }
 
 export default function Chat({ onAddNewRoom }: Props) {
+  const chatContext = useChat();
+  const deafultState: RoomDto[] = [];
+  const [rooms, setRooms] = useState(deafultState);
+
+  chatContext.socket.on('roomAdded', (newRoom: RoomDto) => {
+    setRooms([...rooms, newRoom]);
+  });
+
+  useEffect(() => {
+    chatContext.socket.emit('getRooms');
+
+    chatContext.socket.on('roomsFetched', (rooms: RoomDto[]) => {
+      setRooms(rooms);
+    });
+  }, [0]);
+
   return (
     <Container id="chat" className="Login" component="main" fixed>
       <Grid container spacing={1}>
@@ -19,7 +37,7 @@ export default function Chat({ onAddNewRoom }: Props) {
           <div className="chat-box" />
         </Grid>
         <Grid item xs={12} lg={3}>
-          <Room onAddNewRoom={onAddNewRoom} />
+          <Room onAddNewRoom={onAddNewRoom} rooms={rooms} />
         </Grid>
       </Grid>
     </Container>

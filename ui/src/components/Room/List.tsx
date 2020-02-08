@@ -1,19 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import RoomDto from './Room.dto';
-import { useChat } from '../../ChatContext';
 
-export default function List() {
-  const chatContext = useChat();
-  const [rooms, setRooms] = useState();
-
-  useEffect(() => {
-    chatContext.socket.emit('getRooms');
-
-    chatContext.socket.on('roomsFetched', (rooms: RoomDto[]) => {
-      setRooms(rooms);
-    });
-  }, [0]);
-
+export default function List({ rooms }: any) {
   return (
     <div>
       <div>Rooms list:</div>

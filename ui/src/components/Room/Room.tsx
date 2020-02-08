@@ -1,16 +1,18 @@
 import React from 'react';
 import List from './List';
 import AddRoomButton from './AddRoomButton';
+import RoomDto from './Room.dto';
 
 interface Props {
   onAddNewRoom: () => void;
+  rooms: RoomDto[];
 }
 
-export default function Room({ onAddNewRoom }: Props) {
+export default function Room({ onAddNewRoom, rooms }: Props) {
   return (
     <div id="rooms-list">
       <AddRoomButton onAddNewRoom={onAddNewRoom} />
-      <List />
+      <List rooms={rooms} />
     </div>
   );
 }

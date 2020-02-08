@@ -4,25 +4,19 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 import Container from '@material-ui/core/Container';
-import RoomDto from './Room.dto';
 import { useChat } from '../../ChatContext';
 
 interface Props {
-  handleAddRoom: (newRoom: RoomDto) => void;
   backToChat: () => void;
 }
 
-export default function AddNewRoom({ handleAddRoom, backToChat }: Props) {
+export default function AddNewRoom({ backToChat }: Props) {
   const chatContext = useChat();
   const [stateRoom, saveRoomName] = useState();
   const [errorMessage, setErrorMessage] = useState('');
 
   chatContext.socket.on('roomAlreadyExists', () => {
     setErrorMessage('Room already exists');
-  });
-
-  chatContext.socket.on('roomAdded', (newRoom: RoomDto) => {
-    handleAddRoom(newRoom);
   });
 
   return (

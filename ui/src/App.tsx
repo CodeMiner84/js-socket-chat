@@ -9,33 +9,10 @@ import AddNewRoom from './components/Room/AddNewRoom';
 import RoomDto from './components/Room/Room.dto';
 import { useChat } from './ChatContext';
 
-const ENDPOINT = process.env.REACT_APP_API_URL;
-
 const App = () => {
   const chatContext = useChat();
-
   const [user, setUser] = useState('');
   const [roomAdding, settingNewRoom] = useState(false);
-
-  chatContext.init();
-  function handleSetUser(newNickname: any): void {
-    setUser(newNickname);
-    localStorage.setItem(config.user, newNickname);
-  }
-
-  function handleAddRoom(newRoom: RoomDto): void {
-    settingNewRoom(false);
-    localStorage.setItem(config.room, newRoom.id);
-  }
-
-  function handleAddNewRoom(): void {
-    settingNewRoom(true);
-  }
-
-  function backToChat(): void {
-    settingNewRoom(false);
-  }
-
   useEffect(() => {
     const userFromStorage = localStorage.getItem(config.user);
     if (userFromStorage) {
@@ -48,9 +25,28 @@ const App = () => {
     };
   }, [0]);
 
+  chatContext.init();
+
+  const handleSetUser = (newNickname: any): void => {
+    setUser(newNickname);
+    localStorage.setItem(config.user, newNickname);
+  };
+
+  const handleAddNewRoom = (): void => {
+    settingNewRoom(true);
+  };
+
+  chatContext.socket.on('roomAdded', (newRoom: RoomDto) => {
+    settingNewRoom(false);
+  });
+
+  const backToChat = (): void => {
+    settingNewRoom(false);
+  };
+
   return (
     <div className="App">
-      {roomAdding && <AddNewRoom handleAddRoom={handleAddRoom} backToChat={backToChat} />}
+      {roomAdding && <AddNewRoom backToChat={backToChat} />}
       {!roomAdding && (
         <>
           {user === '' && <Login setUser={handleSetUser} user={user} />}
