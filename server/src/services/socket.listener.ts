@@ -2,7 +2,7 @@ import {Express} from "express";
 import {createServer, Server} from "http";
 import * as SocketIO from "socket.io";
 import {listenRooms} from "../modules/room/room.action";
-import {listenUsers} from "../modules/users";
+import {listenUsers} from "../listeners/user.listeners";
 
 export default class SocketListener {
   private server: Server = {} as Server;
@@ -31,6 +31,10 @@ export default class SocketListener {
     this.io.on('connection', async (socket: SocketIO.Socket) => {
       listenRooms(this.io, socket);
       listenUsers(socket);
+
+      socket.on('disconnect', async () => {
+        console.log('DISCONNECTING FROM APP');
+      })
     });
   }
 }

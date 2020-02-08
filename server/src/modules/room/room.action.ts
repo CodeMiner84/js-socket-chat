@@ -21,7 +21,6 @@ export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket)
 
   socket.on(events.GET_ROOMS, async function () {
     try {
-      console.log('GET_ROOMS')
       socket.emit(events.ROOMS_FETCHED, await getAllRooms());
     } catch (error) {
     }

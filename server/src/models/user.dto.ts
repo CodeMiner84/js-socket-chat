@@ -1,3 +1,5 @@
 export default interface UserDto {
-  value: string;
+  id: string;
+  name: string;
+  roomId?: string;
 }
