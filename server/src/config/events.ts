@@ -13,5 +13,6 @@ export default {
   ROOM_ADDED: 'roomAdded',
   ROOM_ALREADY_EXISTS: 'roomAlreadyExists',
   ROOM_CHANGED: 'roomChanged',
+  ROOM_CHANGE_ERROR: 'roomChangeError',
   ROOMS_FETCHED: 'roomsFetched',
 }
