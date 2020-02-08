@@ -16,7 +16,6 @@ export default class SocketListener {
     this.io = SocketIO(this.server);
   }
 
-
   public listen(): void {
     this.serverListening();
     this.listenOnEvents();

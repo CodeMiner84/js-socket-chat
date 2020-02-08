@@ -5,16 +5,15 @@ import {addRoom, getAllRooms} from "./room.service";
 import InputDto from "../../common/input.dto";
 
 export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket) {
-  socket.on(events.ADD_ROOM, async function (room: InputDto) {
+  socket.on(events.ADD_ROOM, async function (input: InputDto) {
     try {
-      await addRoom({
+      const room = {
         id: uuidv4(),
-        name: room.value,
-      });
+        name: input.value,
+      };
+      await addRoom(room);
 
-      socket.emit(events.ROOM_ADDED, room);
-
-      io.sockets.emit(events.ROOMS_FETCHED, await getAllRooms());
+      io.sockets.emit(events.ROOM_ADDED, room);
     } catch (error) {
       socket.emit(events.ROOM_ALREADY_EXISTS);
     }
@@ -22,6 +21,7 @@ export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket)
 
   socket.on(events.GET_ROOMS, async function () {
     try {
+      console.log('GET_ROOMS')
       socket.emit(events.ROOMS_FETCHED, await getAllRooms());
     } catch (error) {
     }
