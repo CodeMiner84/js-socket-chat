@@ -1,6 +1,6 @@
 import redisClient from '../../redis-client';
 import config from '../../config';
-import RoomDto from "./room.dto";
+import RoomDto from "../../models/room.dto";
 
 export async function getAllRooms(): Promise<RoomDto[]> {
   const rawRooms = await redisClient.getAsync(config.room);
