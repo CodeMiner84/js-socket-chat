@@ -22,12 +22,15 @@ const App = () => {
 
   function handleAddRoom(newRoom: RoomDto): void {
     settingNewRoom(false);
-    console.log('newRoom', newRoom);
-    localStorage.setItem(config.room, JSON.stringify(newRoom));
+    localStorage.setItem(config.room, newRoom.id);
   }
 
   function handleAddNewRoom(): void {
     settingNewRoom(true);
+  }
+
+  function backToChat(): void {
+    settingNewRoom(false);
   }
 
   useEffect(() => {
@@ -40,7 +43,13 @@ const App = () => {
 
   return (
     <div className="App">
-      {roomAdding && <AddNewRoom socket={socket} handleAddRoom={handleAddRoom} />}
+      {roomAdding &&
+        <AddNewRoom
+          socket={socket}
+          handleAddRoom={handleAddRoom}
+          backToChat={backToChat}
+        />
+      }
       {!roomAdding && (
         <>
           {user === '' && <Login setUser={handleSetUser} user={user} socket={socket} />}

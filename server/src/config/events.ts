@@ -8,7 +8,7 @@ export default {
 
   //ROOMS
   GET_ROOMS: 'getRooms',
-  SET_ROOM: 'setRoom',
+  ADD_ROOM: 'addRoom',
   ROOMS_FETCHED: 'roomsFetched',
   ROOM_ADDED: 'roomAdded',
   ROOM_ALREADY_EXISTS: 'roomAlreadyExists',

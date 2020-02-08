@@ -22,9 +22,9 @@ app.use(logger('dev'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-io.on('connection', async function (socket: any) {
+io.on('connection', async function (socket: SocketIO.Socket) {
     await watchUsers(socket);
-    await watchRooms(socket);
+    await watchRooms(io, socket);
 });
 
 

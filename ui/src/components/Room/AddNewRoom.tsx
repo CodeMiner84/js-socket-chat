@@ -10,14 +10,15 @@ import RoomDto from './Room.dto';
 interface Props {
   socket: SocketIO.Server;
   handleAddRoom: (newRoom: RoomDto) => void;
+  backToChat: () => void;
 }
 
-export default function AddNewRoom({ socket, handleAddRoom }: Props) {
+export default function AddNewRoom({ socket, handleAddRoom, backToChat }: Props) {
   const [stateRoom, saveRoomName] = useState();
   const [errorMessage, setErrorMessage] = useState('');
 
-  socket.on('roomExist', () => {
-    setErrorMessage('User already exists');
+  socket.on('roomAlreadyExists', () => {
+    setErrorMessage('Room already exists');
   });
 
   socket.on('roomAdded', (newRoom: RoomDto) => {
@@ -31,7 +32,7 @@ export default function AddNewRoom({ socket, handleAddRoom }: Props) {
           <Grid item xs={12} sm={6} lg={4}>
             {errorMessage && (
               <Alert id="login-alert" variant="outlined" severity="error">
-                Room already taken!
+                {errorMessage}
               </Alert>
             )}
             <TextField
@@ -61,6 +62,20 @@ export default function AddNewRoom({ socket, handleAddRoom }: Props) {
               }}
             >
               Add new room
+            </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className="login-submit flex dark"
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                e.preventDefault();
+                setErrorMessage('');
+                backToChat();
+              }}
+            >
+              Back to chat
             </Button>
           </Grid>
         </Grid>

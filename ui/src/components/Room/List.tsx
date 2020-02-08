@@ -9,18 +9,18 @@ interface Props {
 export default function List({ socket }: Props) {
   const [rooms, setRooms] = useState();
 
-  socket.on('roomsFetched', (rooms: RoomDto[]) => {
-    setRooms(rooms);
-  });
-
   useEffect(() => {
     socket.emit('getRooms');
+
+    socket.on('roomsFetched', (rooms: RoomDto[]) => {
+      setRooms(rooms);
+    });
   }, [socket]);
 
   return (
     <div>
       <div>Rooms list:</div>
-      <ul>{rooms && rooms.map((room: any) => <li>{room.name}</li>)}</ul>
+      <ul>{rooms && rooms.map((room: RoomDto) => <li>{room.name}</li>)}</ul>
     </div>
   );
 }
