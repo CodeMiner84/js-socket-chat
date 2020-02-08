@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import RoomDto from './Room.dto';
 import { useChat } from '../../ChatContext';
 
