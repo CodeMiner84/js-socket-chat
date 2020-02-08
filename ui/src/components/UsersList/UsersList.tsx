@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Alert from '@material-ui/lab/Alert';
-import Container from '@material-ui/core/Container';
-import * as SocketIO from 'socket.io';
-import config from '../../config';
+import { useChat } from '../../ChatContext';
 
-interface Props {
-  socket: SocketIO.Server;
-}
+interface Props {}
 
-export default function UsersList({ socket }: Props) {
+export default function UsersList({}: Props) {
+  const chatContext = useChat();
   const [users, setUsers] = useState([]);
 
-  socket.on('refreshUsers', () => {
+  chatContext.socket.on('refreshUsers', () => {
     console.log('refreshing users list');
   });
 
   useEffect(() => {
-    socket.emit('getUsers');
-  }, [socket]);
-
-  console.log('users', users);
+    chatContext.socket.emit('getUsers');
+  }, [0]);
 
   return (
     <div id="users-list">

@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import * as SocketIO from 'socket.io';
 import RoomDto from './Room.dto';
+import { useChat } from '../../ChatContext';
 
-interface Props {
-  socket: SocketIO.Server;
-}
-
-export default function List({ socket }: Props) {
+export default function List() {
+  const chatContext = useChat();
   const [rooms, setRooms] = useState();
 
   useEffect(() => {
-    socket.emit('getRooms');
+    chatContext.socket.emit('getRooms');
 
-    socket.on('roomsFetched', (rooms: RoomDto[]) => {
+    chatContext.socket.on('roomsFetched', (rooms: RoomDto[]) => {
       setRooms(rooms);
     });
-  }, [socket]);
+  }, [0]);
 
   return (
     <div>

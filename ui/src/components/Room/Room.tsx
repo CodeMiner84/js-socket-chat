@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import * as SocketIO from 'socket.io';
-import RoomDto from './Room.dto';
-import { getKey } from '../../utils/storage';
+import React from 'react';
 import List from './List';
 import AddRoomButton from './AddRoomButton';
 
 interface Props {
-  socket: SocketIO.Server;
   onAddNewRoom: () => void;
 }
 
-export default function Room({ socket, onAddNewRoom }: Props) {
+export default function Room({ onAddNewRoom }: Props) {
   return (
     <div id="rooms-list">
       <AddRoomButton onAddNewRoom={onAddNewRoom} />
-      <List socket={socket} />
+      <List />
     </div>
   );
 }

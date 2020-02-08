@@ -4,23 +4,23 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 import Container from '@material-ui/core/Container';
-import * as SocketIO from 'socket.io';
+import { useChat } from '../../ChatContext';
 
 interface Props {
   setUser: (value: string) => void;
   user?: string;
-  socket: SocketIO.Server;
 }
 
-export default function Login({ socket, setUser, user }: Props) {
+export default function Login({ setUser, user }: Props) {
+  const chatContext = useChat();
   const [stateUser, changeUser] = useState();
   const [errorMessage, setErrorMessage] = useState('');
 
-  socket.on('userExist', () => {
+  chatContext.socket.on('userExist', () => {
     setErrorMessage('User already exists');
   });
 
-  socket.on('userAdded', (newUser: string) => {
+  chatContext.socket.on('userAdded', (newUser: string) => {
     setUser(newUser);
   });
 
@@ -57,7 +57,7 @@ export default function Login({ socket, setUser, user }: Props) {
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 e.preventDefault();
                 setErrorMessage('');
-                socket.emit('setUser', { value: stateUser });
+                chatContext.socket.emit('setUser', { value: stateUser });
               }}
             >
               Set user

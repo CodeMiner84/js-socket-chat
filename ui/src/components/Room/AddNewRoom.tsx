@@ -4,24 +4,24 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 import Container from '@material-ui/core/Container';
-import * as SocketIO from 'socket.io';
 import RoomDto from './Room.dto';
+import { useChat } from '../../ChatContext';
 
 interface Props {
-  socket: SocketIO.Server;
   handleAddRoom: (newRoom: RoomDto) => void;
   backToChat: () => void;
 }
 
-export default function AddNewRoom({ socket, handleAddRoom, backToChat }: Props) {
+export default function AddNewRoom({ handleAddRoom, backToChat }: Props) {
+  const chatContext = useChat();
   const [stateRoom, saveRoomName] = useState();
   const [errorMessage, setErrorMessage] = useState('');
 
-  socket.on('roomAlreadyExists', () => {
+  chatContext.socket.on('roomAlreadyExists', () => {
     setErrorMessage('Room already exists');
   });
 
-  socket.on('roomAdded', (newRoom: RoomDto) => {
+  chatContext.socket.on('roomAdded', (newRoom: RoomDto) => {
     handleAddRoom(newRoom);
   });
 
@@ -58,7 +58,7 @@ export default function AddNewRoom({ socket, handleAddRoom, backToChat }: Props)
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 e.preventDefault();
                 setErrorMessage('');
-                socket.emit('addRoom', { value: stateRoom });
+                chatContext.socket.emit('addRoom', { value: stateRoom });
               }}
             >
               Add new room
