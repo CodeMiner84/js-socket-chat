@@ -5,6 +5,8 @@ import UsersList from '../UsersList';
 import Room from '../Room';
 import RoomDto from '../Room/Room.dto';
 import { useChat } from '../../ChatContext';
+import MessageInput from './MessageInput';
+import MessagesList from './MessagesList';
 
 interface Props {
   onAddNewRoom: () => void;
@@ -20,6 +22,10 @@ export default function Chat({ onAddNewRoom, handleLogout }: Props) {
     setRooms([...rooms, newRoom]);
   });
 
+  const handleMessage = (message: string) => {
+    chatContext.socket.emit('addMessage', { value: message });
+  };
+
   useEffect(() => {
     chatContext.socket.emit('getRooms');
 
@@ -34,8 +40,9 @@ export default function Chat({ onAddNewRoom, handleLogout }: Props) {
         <Grid item xs={12} lg={3}>
           <UsersList handleLogout={handleLogout} />
         </Grid>
-        <Grid item xs={12} lg={6}>
-          <div className="chat-box" />
+        <Grid item xs={12} lg={6} id="messages-box">
+          <MessagesList />
+          <MessageInput handleMessage={handleMessage} />
         </Grid>
         <Grid item xs={12} lg={3}>
           <Room onAddNewRoom={onAddNewRoom} rooms={rooms} />

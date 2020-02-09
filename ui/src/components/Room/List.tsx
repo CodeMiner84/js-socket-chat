@@ -1,7 +1,7 @@
 import React from 'react';
 import RoomDto from './Room.dto';
 import { useChat } from '../../ChatContext';
-import config from "../../config";
+import config from '../../config';
 
 interface Props {
   rooms: RoomDto[];
@@ -13,7 +13,7 @@ export default function List({ rooms }: Props) {
   const onRoomChange = (roomId: string) => {
     chatContext.socket.emit('changeRoom', {
       roomId,
-      userId: localStorage.getItem(config.user)
+      userId: localStorage.getItem(config.user),
     });
   };
 

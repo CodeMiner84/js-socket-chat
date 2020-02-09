@@ -69,24 +69,28 @@ button.dark.MuiButton-root {
 }
 
 #chat {
-  height: 100vh;;
-  margin: 10px auto;
+  flex-grow: 1;
+  height: calc(100vh );
+  margin: 0 auto;
   > div {
-    height: 100vh;;
+    flex-grow: 1;
     > div.MuiGrid-item {
-      height: 100vh;
+      flex-grow: 1;
+      display: flex;
     }
   }
 
   .chat-box {
-    height: 100vh;;
     width: 100%;
     background: $white;
   }
 }
 
 #users-list, #rooms-list {
-  height: calc(100vh - 20px);
+  flex-grow: 1;
+  flex-direction: column;
+  display: flex;
+  margin-top: 10px;
   width: 100%;
   background: $white;
   padding: 10px;
@@ -96,6 +100,25 @@ button.dark.MuiButton-root {
       list-style-type: none;
     }
   }
+}
+#messages-box {
+  flex-direction: column;
+  display: flex;
+  height: calc(100vh - 20px);
+  margin-top: 10px;
+}
+
+#messages {
+  display: flex;
+  flex-grow: 1;
+  background: $white;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+#message-input {
+  display: flex;
 }
 
 code {
