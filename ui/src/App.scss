@@ -14,7 +14,7 @@ html {
 html, body, #root {
   padding: 0px !important;;
   margin: 0px !important;;
-  height: 100vh;;
+  height: 100vh;
   width: 100vw;
 }
 
@@ -32,7 +32,7 @@ div.App {
   height: 100vh;;
   box-sizing: border-box;
   main {
-    height: 100vh;;
+    height: 100vh;
   }
 }
 
@@ -51,7 +51,7 @@ button.dark.MuiButton-root {
 
 .Login {
   max-width: 200px;
-  height: 100vh;;
+  height: 100vh;
   form {
     height: 100vh;;
   }
@@ -92,15 +92,28 @@ button.dark.MuiButton-root {
   display: flex;
   margin-top: 10px;
   width: 100%;
-  background: $white;
-  padding: 10px;
-  ul {
-    padding-left: 10px;
+  background: #343C80;
+  color: $white;
+  .MuiAvatar-circle {
+    background: #444b7f;
+    font-size: 14px;
+  }
+  ul.MuiList-root {
     li {
+      padding: 10px 10px;
       list-style-type: none;
+      border-top: 1px solid #2C3171;
+      &:hover, &.active {
+        background: #282F66;
+      }
     }
   }
 }
+
+#rooms-list li {
+  cursor: pointer;
+}
+
 #messages-box {
   flex-direction: column;
   display: flex;
@@ -110,15 +123,23 @@ button.dark.MuiButton-root {
 
 #messages {
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
   background: $white;
   padding: 20px;
-  margin-bottom: 20px;
   width: 100%;
 }
 
 #message-input {
   display: flex;
+  background: #F9F9F9;
+  .MuiFormControl-root {
+    margin: 10px 10px;
+  }
+  input {
+    border-radius: 0;
+    border: 1px solid #D9D9D9;
+  }
 }
 
 code {
