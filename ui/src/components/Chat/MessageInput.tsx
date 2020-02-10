@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -8,6 +8,13 @@ interface Props {
 }
 
 export default function MessageInput({ handleMessage }: Props) {
+  const [message, setMessage] = useState();
+
+  const onTyping = (message: string) => {
+    setMessage(message);
+  }
+
+
   return (
     <div id="message-input">
       <TextField
@@ -21,7 +28,12 @@ export default function MessageInput({ handleMessage }: Props) {
         autoComplete="message"
         className="flex"
         onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-          handleMessage(e.target.value);
+          onTyping(e.target.value);
+        }}
+        onKeyPress={(key) => {
+          if (key.charCode === 13) {
+            handleMessage(message);
+          }
         }}
       />
     </div>
