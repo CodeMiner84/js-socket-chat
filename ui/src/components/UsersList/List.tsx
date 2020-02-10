@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import List from '@material-ui/core/List';
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
 import { useChat } from '../../ChatContext';
+import {Avatar} from "@material-ui/core";
 
 interface Props {}
 
-export default function List({}: Props) {
+export default function UsersList({}: Props) {
   const chatContext = useChat();
-  const [users, setUsers] = useState([]);
+  const initialState: string[] = [];
+  const [users, setUsers] = useState(initialState);
 
   chatContext.socket.on('refreshUsers', () => {
     console.log('refreshing users list');
@@ -13,13 +19,20 @@ export default function List({}: Props) {
 
   useEffect(() => {
     chatContext.socket.emit('getUsers');
+
+    setUsers(['mike', 'dejv', 'parys']);
   }, [0]);
 
   return (
-    <ul>
+    <List disablePadding>
       {users.map((user: string) => (
-        <li>{user}</li>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>{user.substring(0, 2)}</Avatar>
+          </ListItemAvatar>
+          <ListItemText>{user}</ListItemText>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 }

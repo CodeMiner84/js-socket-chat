@@ -1,13 +1,14 @@
-import React from 'react';
-import RoomDto from './Room.dto';
+import React, {useEffect} from 'react';
+import RoomDto from '../../models/Room.dto';
 import { useChat } from '../../ChatContext';
 import config from '../../config';
+import {List, ListItem} from "@material-ui/core";
 
 interface Props {
   rooms: RoomDto[];
 }
 
-export default function List({ rooms }: Props) {
+export default function RoomList({ rooms }: Props) {
   const chatContext = useChat();
 
   const onRoomChange = (roomId: string) => {
@@ -17,10 +18,18 @@ export default function List({ rooms }: Props) {
     });
   };
 
+  useEffect(() => {
+    if (localStorage.getItem(config.user)) {
+      onRoomChange(localStorage.getItem(config.user) as string);
+    }
+  });
+
   return (
     <div>
       <div>Rooms list:</div>
-      <ul>{rooms && rooms.map((room: RoomDto) => <li onClick={() => onRoomChange(room.id)}>{room.name}</li>)}</ul>
+      <List>
+        {rooms && rooms.map((room: RoomDto) => <ListItem onClick={() => onRoomChange(room.id)}>{room.name}</ListItem>)}
+      </List>
     </div>
   );
 }

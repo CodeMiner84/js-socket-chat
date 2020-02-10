@@ -4,7 +4,7 @@ import Chat from './components/Chat';
 import config from './config';
 import './App.scss';
 import AddNewRoom from './components/Room/AddNewRoom';
-import RoomDto from './components/Room/Room.dto';
+import RoomDto from './models/Room.dto';
 import { useChat } from './ChatContext';
 import User from './models/User';
 

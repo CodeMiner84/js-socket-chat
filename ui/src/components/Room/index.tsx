@@ -1,7 +1,7 @@
 import React from 'react';
 import List from './List';
 import AddRoomButton from './AddRoomButton';
-import RoomDto from './Room.dto';
+import RoomDto from '../../models/Room.dto';
 
 interface Props {
   onAddNewRoom: () => void;
