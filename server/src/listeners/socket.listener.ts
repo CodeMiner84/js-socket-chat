@@ -3,6 +3,7 @@ import {createServer, Server} from "http";
 import * as SocketIO from "socket.io";
 import {listenRooms} from "./room.listeners";
 import {listenUsers} from "./user.listeners";
+import {messageListeners} from "./message.listeners";
 
 export default class SocketListener {
   private server: Server = {} as Server;
@@ -31,6 +32,7 @@ export default class SocketListener {
     this.io.on('connection', async (socket: SocketIO.Socket) => {
       listenRooms(this.io, socket);
       listenUsers(socket);
+      messageListeners(this.io, socket);
 
       socket.on('disconnect', async () => {
         console.log('DISCONNECTING FROM APP');
