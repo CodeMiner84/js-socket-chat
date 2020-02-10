@@ -1,4 +1,9 @@
 export default {
+  //MESSAGES
+  ADD_MESSAGE: 'addMessage',
+  RECEIVE_MESSAGE: 'receiveMessage',
+
+
   //USERS
   GET_USERS: 'getUsers',
   USER_ALREADY_EXISTS: 'userExists',
