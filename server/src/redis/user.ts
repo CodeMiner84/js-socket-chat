@@ -24,6 +24,14 @@ export async function changeUserRoom(userId: string, roomId: string): Promise<vo
   await client.hset(config.user_room, userId, roomId);
 }
 
+export async function getUserRoom(userId: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    return client.hget(config.user_room, userId, (err: any, result: any) => {
+      resolve(result);
+    });
+  });
+}
+
 export async function addUser(user: UserDto): Promise<UserDto> {
   const users = await getAllUsers();
 
