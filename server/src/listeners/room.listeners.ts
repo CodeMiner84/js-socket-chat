@@ -33,6 +33,8 @@ export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket)
       await changeUserRoom(input.userId, input.roomId);
 
       socket.emit(events.ROOM_CHANGED, input.roomId);
+      socket.join(input.roomId);
+      console.log(`Join room ${input.roomId}`);
     } catch (error) {
       console.log('error occurs', error);
       socket.emit(events.ROOM_CHANGE_ERROR);
