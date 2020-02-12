@@ -20,6 +20,8 @@ const App = () => {
     }
     chatContext.init();
 
+    chatContext.socket.emit('fetchMessages', {userId: localStorage.getItem(config.user)});
+
     return () => {
       chatContext.disconnect();
     };

@@ -7,10 +7,16 @@ import MessageDto from "../models/message.dto";
 import {addMessage, getMessages} from "../redis/message";
 
 export async function messageListeners (io: SocketIO.Server, socket: any) {
-  socket.on(events.FETCH_MESSAGES, async function(roomId: any) {
-    console.log(`Fetching images from room: ${roomId}`);
-    const messages = await getMessages(roomId.roomId);
-    io.sockets.in(roomId.roomId).emit(events.GET_MESSAGES, messages);
+  socket.on(events.FETCH_MESSAGES, async function(userId: any) {
+    console.log(`Fetching messages from room: ${userId.userId}`);
+    const connectedRoom = await getUserRoom(userId.userId);
+    if (!connectedRoom) {
+      throw Error("You need to connect to room");
+    }
+
+    const messages = await getMessages(connectedRoom);
+    io.sockets.emit(events.GET_MESSAGES, messages);
+    console.log(`Fetched ${messages.length} messages`);
   })
 
   socket.on(events.ADD_MESSAGE, async function (input: InputMessageDto) {

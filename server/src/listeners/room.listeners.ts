@@ -30,6 +30,7 @@ export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket)
 
   socket.on(events.CHANGE_ROOM, async function (input: ChangeRoom) {
     try {
+      console.log('Changing room input value', input);
       await changeUserRoom(input.userId, input.roomId);
 
       socket.emit(events.ROOM_CHANGED, input.roomId);

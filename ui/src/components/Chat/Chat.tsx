@@ -36,8 +36,6 @@ export default function Chat({ onAddNewRoom, handleLogout }: Props) {
     chatContext.socket.on('roomsFetched', (rooms: RoomDto[]) => {
       setRooms(rooms);
     });
-
-    chatContext.socket.emit('fetchMessages', {roomId: localStorage.getItem(config.user)});
     chatContext.socket.on('getMessages', (messages: MessageDto[]) => {
       setMessages(messages);
     });

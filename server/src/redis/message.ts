@@ -8,9 +8,9 @@ export async function addMessage(roomId: string, messaege: MessageDto): Promise<
     return messaege;
 }
 
-export async function getMessages(roomId: string,): Promise<MessageDto> {
+export async function getMessages(roomId: string,): Promise<MessageDto[]> {
     return new Promise((resolve, reject) => {
-        return client.lrange(`${config.message}_${roomId}`,-4 , -1, (err: any, result: any) => {
+        return client.lrange(`${config.message}_${roomId}`,-10 , -1, (err: any, result: any) => {
             resolve(result.map((message: string) => JSON.parse(message)));
         });
     });
