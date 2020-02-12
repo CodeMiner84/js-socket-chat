@@ -44,11 +44,14 @@ input.MuiInputBase-input {
   border-radius: 5px;
 }
 button.dark.MuiButton-root {
-  background: $black;
+  background: #1f2556;
   color: $white;
-  border: 1px solid $white;
+  border: none;
+  border-bottom: 30px;
 }
-
+.box-header {
+  margin: 20px 20px 0;
+}
 .Login {
   max-width: 200px;
   height: 100vh;

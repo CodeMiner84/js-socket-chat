@@ -26,7 +26,7 @@ export default function RoomList({ rooms }: Props) {
 
   return (
     <div>
-      <div>Rooms list:</div>
+      <div className="box-header">AVAILABLE ROOMS:</div>
       <List>
         {rooms && rooms.map((room: RoomDto) => <ListItem onClick={() => onRoomChange(room.id)}>{room.name}</ListItem>)}
       </List>
