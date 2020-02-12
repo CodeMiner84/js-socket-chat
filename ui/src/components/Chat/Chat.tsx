@@ -8,6 +8,7 @@ import { useChat } from '../../ChatContext';
 import MessageInput from './MessageInput';
 import MessagesList from './MessagesList';
 import config from "../../config";
+import MessageDto from "../../models/Message";
 
 interface Props {
   onAddNewRoom: () => void;
@@ -16,8 +17,10 @@ interface Props {
 
 export default function Chat({ onAddNewRoom, handleLogout }: Props) {
   const chatContext = useChat();
-  const deafultState: RoomDto[] = [];
-  const [rooms, setRooms] = useState(deafultState);
+  const initialRoomsState: RoomDto[] = [];
+  const [rooms, setRooms] = useState(initialRoomsState);
+  const initalMessagesState: MessageDto[] = [];
+  const [messages, setMessages] = useState(initalMessagesState);
 
   chatContext.socket.on('roomAdded', (newRoom: RoomDto) => {
     setRooms([...rooms, newRoom]);
@@ -33,6 +36,11 @@ export default function Chat({ onAddNewRoom, handleLogout }: Props) {
     chatContext.socket.on('roomsFetched', (rooms: RoomDto[]) => {
       setRooms(rooms);
     });
+
+    chatContext.socket.emit('fetchMessages', {roomId: localStorage.getItem(config.user)});
+    chatContext.socket.on('getMessages', (messages: MessageDto[]) => {
+      setMessages(messages);
+    });
   }, [0]);
 
   return (
@@ -42,7 +50,7 @@ export default function Chat({ onAddNewRoom, handleLogout }: Props) {
           <UsersList handleLogout={handleLogout} />
         </Grid>
         <Grid item xs={12} lg={6} id="messages-box">
-          <MessagesList />
+          <MessagesList initialMessages={messages} />
           <MessageInput handleMessage={handleMessage} />
         </Grid>
         <Grid item xs={12} lg={3}>

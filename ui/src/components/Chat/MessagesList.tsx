@@ -4,8 +4,13 @@ import Message from "../../models/Message";
 import {ListItem} from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
+import MessageDto from "../../models/Message";
 
-export default function MessagesList() {
+interface Props {
+  initialMessages: MessageDto[];
+}
+
+export default function MessagesList({ initialMessages }: Props) {
   const deafultState: Message[] = [];
   const [messages, addMessage] = useState(deafultState);
   const chatContext = useChat();
@@ -16,7 +21,7 @@ export default function MessagesList() {
 
   return <List id="messages">
     {
-      messages.map((message: Message) => {
+      initialMessages.concat(messages).map((message: Message) => {
         return <ListItem>
           <ListItemText
               primary={message.user}

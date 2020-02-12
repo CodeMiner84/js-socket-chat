@@ -1,6 +1,8 @@
 export default {
   //MESSAGES
   ADD_MESSAGE: 'addMessage',
+  GET_MESSAGES: 'getMessages',
+  FETCH_MESSAGES: 'fetchMessages',
   RECEIVE_MESSAGE: 'receiveMessage',
 
 
