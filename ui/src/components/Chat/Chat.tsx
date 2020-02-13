@@ -7,8 +7,8 @@ import RoomDto from '../../models/Room.dto';
 import { useChat } from '../../ChatContext';
 import MessageInput from './MessageInput';
 import MessagesList from './MessagesList';
-import config from "../../config";
-import MessageDto from "../../models/Message";
+import config from '../../config';
+import MessageDto from '../../models/Message';
 
 interface Props {
   onAddNewRoom: () => void;
@@ -27,12 +27,11 @@ export default function Chat({ onAddNewRoom, handleLogout }: Props) {
   });
 
   const handleMessage = (message: string) => {
-    chatContext.socket.emit('addMessage', { message: message, userId: localStorage.getItem(config.user) });
+    chatContext.socket.emit('addMessage', { message, userId: localStorage.getItem(config.user) });
   };
 
   useEffect(() => {
     chatContext.socket.emit('getRooms');
-
     chatContext.socket.on('roomsFetched', (rooms: RoomDto[]) => {
       setRooms(rooms);
     });

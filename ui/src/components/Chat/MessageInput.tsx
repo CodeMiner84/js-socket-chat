@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 
 interface Props {
@@ -10,7 +10,7 @@ export default function MessageInput({ handleMessage }: Props) {
 
   const onTyping = (message: string) => {
     setMessage(message);
-  }
+  };
 
   return (
     <div id="message-input">
@@ -28,7 +28,7 @@ export default function MessageInput({ handleMessage }: Props) {
         onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
           onTyping(e.target.value);
         }}
-        onKeyPress={(key) => {
+        onKeyPress={key => {
           if (key.charCode === 13) {
             handleMessage(message);
             setMessage('');

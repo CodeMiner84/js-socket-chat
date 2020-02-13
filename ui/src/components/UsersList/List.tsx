@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import List from '@material-ui/core/List';
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import { Avatar } from '@material-ui/core';
 import { useChat } from '../../ChatContext';
-import {Avatar} from "@material-ui/core";
 
 interface Props {}
 
