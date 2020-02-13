@@ -15,7 +15,7 @@ export async function messageListeners (io: SocketIO.Server, socket: any) {
     }
 
     const messages = await getMessages(connectedRoom);
-    io.sockets.emit(events.GET_MESSAGES, messages);
+    await io.sockets.in(connectedRoom).emit(events.GET_MESSAGES, messages);
     console.log(`Fetched ${messages.length} messages`);
   })
 
@@ -39,7 +39,7 @@ export async function messageListeners (io: SocketIO.Server, socket: any) {
 
       await addMessage(connectedRoom, message);
 
-      io.sockets.in(connectedRoom).emit(events.RECEIVE_MESSAGE, { message: input.message, user: input.userId });
+      await io.sockets.in(connectedRoom).emit(events.RECEIVE_MESSAGE, message);
 
       console.log(`Emit receiveMessage event from ${connectedRoom} with message: ${input.message}`);
     } catch (error) {

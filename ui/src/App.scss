@@ -125,6 +125,7 @@ button.dark.MuiButton-root {
 }
 
 #messages {
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   flex-grow: 1;

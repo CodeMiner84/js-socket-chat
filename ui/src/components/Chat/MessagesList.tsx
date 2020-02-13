@@ -15,9 +15,8 @@ export default function MessagesList({ initialMessages }: Props) {
   const [messages, addMessage] = useState(deafultState);
   const chatContext = useChat();
 
-  chatContext.socket.on('receiveMessage', (message: Message) => {
-    addMessage([...messages, message]);
-  });
+  // useEffect(() => {
+  // }, [messages])
 
   return (
     <List id="messages">
@@ -28,5 +27,6 @@ export default function MessagesList({ initialMessages }: Props) {
           </ListItem>
         );
       })}
-         </List>;
+   </List>
+  );
 }
