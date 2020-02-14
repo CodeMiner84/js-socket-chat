@@ -20,7 +20,7 @@ interface Props {
 export default function Chat({ onAddNewRoom, handleLogout, messages, rooms }: Props) {
   const chatContext = useChat();
   const initalMessagesState: MessageDto[] = [];
-  const [message, setMessage] = useState(initalMessagesState);
+  const [newMessages, setMessages] = useState(initalMessagesState);
   // const [counter, setCounter] = useState(0);
   //
   // chatContext.socket.on('roomAdded', (newRoom: RoomDto) => {
@@ -29,19 +29,20 @@ export default function Chat({ onAddNewRoom, handleLogout, messages, rooms }: Pr
   //
   const handleMessage = (message: string) => {
     chatContext.socket.emit('addMessage', { message, userId: localStorage.getItem(config.user) });
-    // setCounter(counter + 1);
   };
 
-  //
-  // useEffect(() => {
-  //   chatContext.socket.on('receiveMessage', (newMessage: MessageDto) => {
-  //     console.log('b', message);
-  //     setMessage([...message, newMessage]);
-  //   });
-  // //   console.log('a', counter);
-  // }, [messages, message]);
+  useEffect(() => {
+    chatContext.socket.on('receiveMessage', (newMessage: MessageDto) => {
+      console.log('receiveMessage');
 
-  console.log('a");');
+      newMessages.push(newMessage);
+      setMessages([...newMessages]);
+      console.log('newMessages', newMessages);
+    });
+
+    chatContext.socket.on('roomChanged', () => setMessages([]));
+  }, [messages]);
+
   return (
     <Container id="chat" className="Login" component="main" fixed>
       <Grid container>
@@ -49,7 +50,7 @@ export default function Chat({ onAddNewRoom, handleLogout, messages, rooms }: Pr
           <UsersList handleLogout={handleLogout} />
         </Grid>
         <Grid item xs={12} lg={6} id="messages-box">
-          <MessagesList initialMessages={messages} />
+          <MessagesList initialMessages={[...messages, ...newMessages]} />
           <MessageInput handleMessage={handleMessage} />
         </Grid>
         <Grid item xs={12} lg={3}>

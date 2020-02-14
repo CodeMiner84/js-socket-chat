@@ -15,13 +15,10 @@ const App = () => {
   chatContext.init();
   const [user, setUser] = useState();
   const [roomAdding, settingNewRoom] = useState(false);
-  // const initalMessagesState: MessageDto[] = [];
-  // const [message, setMessage] = useState(initalMessagesState);
   const initialRoomsState: RoomDto[] = [];
   const [rooms, setRooms] = useState(initialRoomsState);
-  const initalMessagesState2: MessageDto[] = [];
-  const test: any = {messages: [], message: []};
-  const [messages, setMessages] = useState(test);
+  const initalMessagesState: any = [];
+  const [messages, setMessages] = useState(initalMessagesState);
 
   useEffect(() => {
     const userFromStorage = localStorage.getItem(config.user);
@@ -41,15 +38,7 @@ const App = () => {
   }, [0]);
 
   chatContext.socket.on('getMessages', async (newMessages: MessageDto[]) => {
-    await setMessages({ messages: newMessages, message: []});
-    console.log('get messages', messages);
-  });
-
-  chatContext.socket.on('receiveMessage', (newMessage: MessageDto) => {
-    console.log('receiveMessage', messages.message);
-    const arr: MessageDto[] = messages.message;
-    arr.push(newMessage);
-    setMessages({ messages: messages.messages, message: [...arr]});
+    await setMessages([...newMessages]);
   });
 
   const handleSetUser = (newUser: User): void => {
@@ -70,13 +59,6 @@ const App = () => {
     settingNewRoom(false);
   });
 
-  // console.log('[...messages, ...message]', [...messages.message, ...messages.message]);
-
-  // chatContext.socket.on('receiveMessage', (newMessage: MessageDto) => {
-  //   console.log('b', message);
-  //   setMessage([...message, newMessage]);
-  //   console.log('b', message);
-  // });
   const backToChat = (): void => {
     settingNewRoom(false);
   };
@@ -90,7 +72,7 @@ const App = () => {
           {user && <Chat
               onAddNewRoom={handleAddNewRoom}
               handleLogout={handleLogout}
-              messages={[...messages.messages, ...messages.message]}
+              messages={[...messages]}
               rooms={rooms}
           />}
         </>
