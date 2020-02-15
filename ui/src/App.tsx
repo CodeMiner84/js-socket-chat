@@ -7,7 +7,7 @@ import AddNewRoom from './components/Room/AddNewRoom';
 import RoomDto from './models/Room.dto';
 import { useChat } from './ChatContext';
 import User from './models/User';
-import MessageDto from "./models/Message";
+import MessageDto from './models/Message';
 
 const App = () => {
   const chatContext = useChat();
@@ -76,12 +76,9 @@ const App = () => {
       {!roomAdding && (
         <>
           {user === undefined && <Login handleSetUser={handleSetUser} user={user} />}
-          {user && <Chat
-              onAddNewRoom={handleAddNewRoom}
-              handleLogout={handleLogout}
-              messages={[...messages]}
-              rooms={rooms}
-          />}
+          {user && (
+            <Chat onAddNewRoom={handleAddNewRoom} handleLogout={handleLogout} messages={[...messages]} rooms={rooms} />
+          )}
         </>
       )}
     </div>

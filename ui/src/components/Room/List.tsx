@@ -12,7 +12,7 @@ export default function RoomList({ rooms }: Props) {
   const chatContext = useChat();
 
   const onRoomChange = async (roomId: string) => {
-      await chatContext.socket.emit('changeRoom', {
+    await chatContext.socket.emit('changeRoom', {
       roomId,
       userId: localStorage.getItem(config.user),
     });
@@ -29,7 +29,6 @@ export default function RoomList({ rooms }: Props) {
             <ListItem
               onClick={() => {
                 onRoomChange(room.id);
-
               }}
             >
               {room.name}

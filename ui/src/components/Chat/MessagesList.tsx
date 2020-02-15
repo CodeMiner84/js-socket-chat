@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Message from "../../models/Message";
-import {ListItem} from "@material-ui/core";
-import ListItemText from "@material-ui/core/ListItemText";
-import List from "@material-ui/core/List";
-import {useChat} from "../../ChatContext";
+import { ListItem } from '@material-ui/core';
+import ListItemText from '@material-ui/core/ListItemText';
+import List from '@material-ui/core/List';
+import Message from '../../models/Message';
+import { useChat } from '../../ChatContext';
 import MessageDto from '../../models/Message';
 
 interface Props {
@@ -23,10 +23,10 @@ export default function MessagesList({ initialMessages }: Props) {
       {initialMessages.concat(messages).map((message: Message) => {
         return (
           <ListItem>
-            <ListItemText primary={message.user} secondary={<React.Fragment>{message.message}</React.Fragment>} />
+            <ListItemText primary={message.user} secondary={<>{message.message}</>} />
           </ListItem>
         );
       })}
-   </List>
+    </List>
   );
 }
