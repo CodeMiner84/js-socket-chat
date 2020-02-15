@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import UsersList from '../UsersList';
 import Room from '../Room';
-import RoomDto from '../../models/Room.dto';
 import { useChat } from '../../ChatContext';
 import MessageInput from './MessageInput';
 import MessagesList from './MessagesList';
