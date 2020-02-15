@@ -26,13 +26,7 @@ export async function changeUserRoom(userId: string, roomId: string): Promise<vo
 }
 
 export async function getUserRoom(userId: string): Promise<RoomDto> {
-  const userRoomId = await (
-      new Promise((resolve, reject) => {
-        return client.hget(config.user_room, userId, (err: any, result: any) => {
-          resolve(result);
-        });
-      })
-  ) as string;
+  const userRoomId = await redisClient.hgetAsync(config.user_room, userId) as string;
 
   return getRoom(userRoomId);
 }

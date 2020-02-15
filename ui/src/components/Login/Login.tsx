@@ -5,10 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 import Container from '@material-ui/core/Container';
 import { useChat } from '../../utils/SocketService';
-import User from '../../models/User';
+import UserDto from '../../models/UserDto';
 
 interface Props {
-  handleSetUser: (value: User) => void;
+  handleSetUser: (value: UserDto) => void;
   user?: string;
 }
 
@@ -21,7 +21,7 @@ export default function Login({ handleSetUser, user }: Props) {
     setErrorMessage('User already exists');
   });
 
-  chatContext.socket.on('userAdded', (newUser: User) => {
+  chatContext.socket.on('userAdded', (newUser: UserDto) => {
     handleSetUser(newUser);
   });
 

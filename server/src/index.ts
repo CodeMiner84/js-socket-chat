@@ -1,5 +1,4 @@
 import * as express from 'express';
-import 'babel-polyfill';
 import * as path from 'path';
 import * as logger from 'morgan';
 import SocketListener from "./listeners/socket.listener";

@@ -5,23 +5,21 @@ import events from '../config/events';
 import InputMessageDto from "../models/input.message.dto";
 import MessageDto from "../models/message.dto";
 import {addMessage, getMessages} from "../redis/message";
+import InputDto from "../models/input.dto";
 
-export async function messageListeners (io: SocketIO.Server, socket: any) {
-  socket.on(events.FETCH_MESSAGES, async function(userId: any) {
-    console.log(`Fetching messages from room: ${userId.userId}`);
-    const connectedRoom = await getUserRoom(userId.userId);
+export async function messageListeners (io: SocketIO.Server, socket: SocketIO.Socket) {
+  socket.on(events.FETCH_MESSAGES, async function(input: InputDto) {
+    const connectedRoom = await getUserRoom(input.value);
     if (!connectedRoom) {
       throw Error("You need to connect to room");
     }
 
     const messages = await getMessages(connectedRoom.id);
     await io.sockets.in(connectedRoom.id).emit(events.GET_MESSAGES, messages);
-    console.log(`Fetched ${messages.length} messages`);
   })
 
   socket.on(events.ADD_MESSAGE, async function (input: InputMessageDto) {
     try {
-      console.log('Input message ', input);
       const connectedRoom = await getUserRoom(input.userId);
       if (!connectedRoom.id) {
         throw Error("You need to connect to room");
@@ -37,7 +35,6 @@ export async function messageListeners (io: SocketIO.Server, socket: any) {
       await addMessage(connectedRoom.id, message);
 
       await io.sockets.in(connectedRoom.id).emit(events.RECEIVE_MESSAGE, message);
-      console.log(`Emit receiveMessage event from ${connectedRoom.id} with message: ${input.message}`);
     } catch (error) {
       console.log('error', error);
     }

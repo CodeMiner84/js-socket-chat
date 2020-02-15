@@ -3,9 +3,9 @@ import * as uuidv4 from 'uuid/v4';
 import {addUser, getAllUsers} from "../redis/user";
 import UserDto from "../models/user.dto";
 import events from '../config/events';
-import InputDto from "../common/input.dto";
+import InputDto from "../models/input.dto";
 
-export async function listenUsers (socket: any) {
+export async function listenUsers (socket: SocketIO.Socket) {
   socket.on(events.SET_USER, async function (input: InputDto) {
     try {
       const user: UserDto = {
@@ -22,7 +22,6 @@ export async function listenUsers (socket: any) {
   });
 
   socket.on(events.GET_USERS, async function () {
-    console.log(`START ${events.GET_USERS}`);
     try {
       socket.emit(events.USERS_FETCHED, await getAllUsers());
     } catch (error) {

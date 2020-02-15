@@ -1,7 +1,11 @@
 {
-  "name": "my-app",
+  "name": "reactJS-chat",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Michał Pietrasz",
+    "url": "https://github.com/CodeMiner84"
+  },
   "dependencies": {
     "@material-ui/core": "^4.9.1",
     "@material-ui/icons": "^4.9.1",

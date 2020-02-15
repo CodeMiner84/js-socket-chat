@@ -2,8 +2,8 @@ import * as uuidv4 from 'uuid/v4';
 import * as SocketIO from "socket.io";
 import events from '../config/events';
 import {addRoom, getAllRooms, getRoom} from "../redis/room";
-import InputDto from "../common/input.dto";
-import ChangeRoom from "../models/change.room.dto";
+import InputDto from "../models/input.dto";
+import ChangeRoomDto from "../models/change.room.dto";
 import {changeUserRoom, getUser, getUserRoom} from "../redis/user";
 import RoomDto from "../models/room.dto";
 
@@ -29,8 +29,7 @@ export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket)
     }
   });
 
-  socket.on(events.CHANGE_ROOM, async function (input: ChangeRoom) {
-    console.log(`STARTING ${events.CHANGE_ROOM}`);
+  socket.on(events.CHANGE_ROOM, async function (input: ChangeRoomDto) {
     try {
       let room: RoomDto = await getRoom(input.roomId as string);
       if (!room) {
@@ -48,7 +47,6 @@ export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket)
       console.log('error', error);
       socket.emit(events.ROOM_CHANGE_ERROR);
     }
-    console.log(`CLOSING ${events.CHANGE_ROOM}`);
   });
 }
 

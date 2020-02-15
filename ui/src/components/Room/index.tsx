@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import List from './List';
 import AddRoomButton from './AddRoomButton';
-import RoomDto from '../../models/Room.dto';
-import User from '../../models/User';
+import RoomDto from '../../models/RoomDto';
+import UserDto from '../../models/UserDto';
 import { useChat } from '../../utils/SocketService';
 
 interface Props {
   onAddNewRoom: () => void;
   rooms: RoomDto[];
-  user: null|User;
+  user: null | UserDto;
 }
 
 export default function Room({ user, onAddNewRoom, rooms }: Props) {

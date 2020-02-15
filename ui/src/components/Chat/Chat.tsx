@@ -5,9 +5,9 @@ import UsersList from '../UsersList';
 import Room from '../Room';
 import MessageInput from './MessageInput';
 import MessagesList from './MessagesList';
-import MessageDto from '../../models/Message';
-import User from '../../models/User';
-import RoomDto from '../../models/Room.dto';
+import MessageDto from '../../models/MessageDto';
+import UserDto from '../../models/UserDto';
+import RoomDto from '../../models/RoomDto';
 import { useChat } from '../../utils/SocketService';
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
   handleLogout: () => void;
   messages: MessageDto[];
   rooms: RoomDto[];
-  user: null|User;
+  user: null | UserDto;
 }
 
 export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms }: Props) {

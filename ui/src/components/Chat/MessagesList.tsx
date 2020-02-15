@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ListItem } from '@material-ui/core';
-import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
-import Message from '../../models/Message';
-import MessageDto from '../../models/Message';
-import RoomDto from '../../models/Room.dto';
+import Message from '../../models/MessageDto';
+import MessageDto from '../../models/MessageDto';
+import RoomDto from '../../models/RoomDto';
 
 interface Props {
   initialMessages: MessageDto[];

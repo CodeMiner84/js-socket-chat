@@ -5,22 +5,22 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Avatar } from '@material-ui/core';
 import { useChat } from '../../utils/SocketService';
-import User from '../../models/User';
+import UserDto from '../../models/UserDto';
 
 interface Props {}
 
 export default function UsersList({}: Props) {
   const chatContext = useChat();
-  const initialState: User[] = [];
+  const initialState: UserDto[] = [];
   const [users, setUsers] = useState(initialState);
 
-  chatContext.socket.on('usersFetched', (users: User[]) => {
+  chatContext.socket.on('usersFetched', (users: UserDto[]) => {
     setUsers(users);
   });
 
   return (
     <List disablePadding>
-      {users.map((user: User) => (
+      {users.map((user: UserDto) => (
         <ListItem>
           <ListItemAvatar>
             <Avatar>{user.name.substring(0, 2)}</Avatar>

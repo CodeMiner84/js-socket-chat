@@ -5,7 +5,6 @@ export default {
   FETCH_MESSAGES: 'fetchMessages',
   RECEIVE_MESSAGE: 'receiveMessage',
 
-
   //USERS
   GET_USERS: 'getUsers',
   USER_ALREADY_EXISTS: 'userExists',

@@ -6,5 +6,7 @@ export default {
   ...client,
   getAsync: promisify(client.get).bind(client),
   setAsync: promisify(client.set).bind(client),
-  keysAsync: promisify(client.keys).bind(client)
+  keysAsync: promisify(client.keys).bind(client),
+  lrangeAsync: promisify(client.lrange).bind(client),
+  hgetAsync: promisify(client.hget).bind(client)
 };

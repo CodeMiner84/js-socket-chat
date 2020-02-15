@@ -3,7 +3,6 @@ import config from '../config';
 import RoomDto from "../models/room.dto";
 
 export async function getAllRooms(): Promise<RoomDto[]> {
-  console.log('Fetching all rooms');
   const rawRooms = await redisClient.getAsync(config.room);
 
   return JSON.parse(rawRooms) || [];

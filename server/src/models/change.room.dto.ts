@@ -1,4 +1,4 @@
-export default interface ChangeRoom {
+export default interface ChangeRoomDto {
   userId: string;
   roomId?: string;
 }

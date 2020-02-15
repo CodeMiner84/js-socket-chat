@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { List, ListItem } from '@material-ui/core';
-import RoomDto from '../../models/Room.dto';
+import RoomDto from '../../models/RoomDto';
 import { useChat } from '../../utils/SocketService';
-import User from '../../models/User';
+import UserDto from '../../models/UserDto';
 
 interface Props {
   rooms: RoomDto[];
-  user: null|User;
+  user: null | UserDto;
 }
 
 export default function RoomList({ user, rooms }: Props) {
@@ -18,7 +18,7 @@ export default function RoomList({ user, rooms }: Props) {
         userId: user.id,
       });
 
-      await chatContext.socket.emit('fetchMessages', { userId: user.id });
+      await chatContext.socket.emit('fetchMessages', { value: user.id });
     }
   };
 

@@ -3,10 +3,10 @@ import Login from './components/Login';
 import Chat from './components/Chat';
 import './App.scss';
 import AddNewRoom from './components/Room/AddNewRoom';
-import RoomDto from './models/Room.dto';
+import RoomDto from './models/RoomDto';
 import { useChat } from './utils/SocketService';
-import User from './models/User';
-import MessageDto from './models/Message';
+import UserDto from './models/UserDto';
+import MessageDto from './models/MessageDto';
 
 const App = () => {
   const chatContext = useChat();
@@ -34,7 +34,7 @@ const App = () => {
     setMessages([...newMessages]);
   });
 
-  const handleSetUser = (newUser: User): void => {
+  const handleSetUser = (newUser: UserDto): void => {
     setUser(newUser);
   };
 

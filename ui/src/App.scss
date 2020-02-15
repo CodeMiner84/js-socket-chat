@@ -100,6 +100,7 @@ button.dark.MuiButton-root {
   color: $white;
   .box {
     display: flex;
+    overflow: auto;
     flex: 1;
     flex-direction: column;
   }
