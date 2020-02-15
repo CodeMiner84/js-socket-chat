@@ -21,21 +21,21 @@ const App = () => {
   const [messages, setMessages] = useState(initalMessagesState);
 
   useEffect(() => {
-    const userFromStorage = localStorage.getItem(config.user);
-    if (userFromStorage) {
-      setUser(userFromStorage);
-    }
+    // const userFromStorage = localStorage.getItem(config.user);
+    // if (userFromStorage) {
+    //   setUser(userFromStorage);
+    // }
 
-    if (localStorage.getItem(config.user)) {
-      chatContext.socket.emit('changeRoom', {
-        userId: localStorage.getItem(config.user),
-      });
-    }
+    // if (localStorage.getItem(config.user)) {
+    //   chatContext.socket.emit('changeRoom', {
+    //     userId: localStorage.getItem(config.user),
+    //   });
+    // }
     chatContext.socket.emit('getRooms');
     chatContext.socket.on('roomsFetched', (rooms: RoomDto[]) => {
       setRooms(rooms);
     });
-    chatContext.socket.emit('fetchMessages', { userId: localStorage.getItem(config.user) });
+    // chatContext.socket.emit('fetchMessages', { userId: localStorage.getItem(config.user) });
 
     chatContext.socket.on('roomChanged', () => setMessages([]));
 
@@ -50,12 +50,12 @@ const App = () => {
 
   const handleSetUser = (newUser: User): void => {
     setUser(newUser);
-    localStorage.setItem(config.user, newUser.id);
+    // localStorage.setItem(config.user, newUser.id);
   };
 
   const handleLogout = () => {
-    setUser('');
-    localStorage.removeItem(config.user);
+    setUser(undefined);
+    // localStorage.removeItem(config.user);
   };
 
   const handleAddNewRoom = (): void => {
