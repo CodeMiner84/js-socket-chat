@@ -2,6 +2,7 @@ import redisClient, {client} from '../redis-client';
 import config from '../config';
 import UserDto from "../models/user.dto";
 import RoomDto from "../models/room.dto";
+import {getRoom} from "./room";
 
 export async function getAllUsers(): Promise<UserDto[]> {
   const rawUsers = await redisClient.getAsync(config.user);
@@ -33,7 +34,7 @@ export async function getUserRoom(userId: string): Promise<RoomDto> {
       })
   ) as string;
 
-  return JSON.parse(await redisClient.getAsync(config.room)).filter((room: RoomDto) => room.id == userRoomId)[0];
+  return getRoom(userRoomId);
 }
 
 export async function addUser(user: UserDto): Promise<UserDto> {

@@ -10,7 +10,6 @@ export async function getAllRooms(): Promise<RoomDto[]> {
 }
 
 export async function getRoom(roomId: string): Promise<RoomDto> {
-  console.log('Get one room');
   const room = (await getAllRooms()).filter((room: RoomDto) => room.id === roomId);
 
   if (!room) {

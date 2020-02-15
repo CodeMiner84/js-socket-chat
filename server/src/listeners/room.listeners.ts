@@ -5,6 +5,7 @@ import {addRoom, getAllRooms, getRoom} from "../redis/room";
 import InputDto from "../common/input.dto";
 import ChangeRoom from "../models/change.room.dto";
 import {changeUserRoom, getUser, getUserRoom} from "../redis/user";
+import RoomDto from "../models/room.dto";
 
 export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket) {
   socket.on(events.ADD_ROOM, async function (input: InputDto) {
@@ -29,26 +30,25 @@ export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket)
   });
 
   socket.on(events.CHANGE_ROOM, async function (input: ChangeRoom) {
+    console.log(`STARTING ${events.CHANGE_ROOM}`);
     try {
-      console.log('Changing room input value', input);
-      let roomId = input.roomId;
-      if (!roomId) {
-        const room = await getUserRoom(input.userId);
-        roomId = room.id;
-        console.log('Selecting user room ', roomId);
-        if (!roomId) {
+      let room: RoomDto = await getRoom(input.roomId as string);
+      if (!room) {
+        const userRoom = await getUserRoom(input.userId);
+        if (!userRoom) {
           throw Error(`No selected room for user ${input.userId}`);
         }
+        room = (await getRoom(userRoom.id)) as RoomDto;
       }
-      socket.join(roomId);
-      await changeUserRoom(input.userId, roomId);
+      socket.join(room.id);
+      await changeUserRoom(input.userId, room.id);
 
-      socket.emit(events.ROOM_CHANGED, roomId);
-      console.log(`Join room ${roomId}`);
+      await socket.emit(events.ROOM_CHANGED, room);
     } catch (error) {
-      console.log('error occurs', error);
+      console.log('error', error);
       socket.emit(events.ROOM_CHANGE_ERROR);
     }
+    console.log(`CLOSING ${events.CHANGE_ROOM}`);
   });
 }
 
