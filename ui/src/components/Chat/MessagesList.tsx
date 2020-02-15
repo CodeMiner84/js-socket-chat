@@ -19,7 +19,13 @@ export default function MessagesList({ room, initialMessages }: Props) {
         {initialMessages.map((message: Message) => {
           return (
             <ListItem>
-              <ListItemText primary={message.user} secondary={<>{message.message}</>} />
+              <div>
+                <div className="user-date">
+                  <span className="user">{message.user}</span>
+                  <span className="date">{message.created}</span>
+                </div>
+                <p>{message.message}</p>
+              </div>
             </ListItem>
           );
         })}
