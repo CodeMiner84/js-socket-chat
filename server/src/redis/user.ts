@@ -40,13 +40,7 @@ export async function getUserRoom(userId: string): Promise<RoomDto> {
 export async function addUser(user: UserDto): Promise<UserDto> {
   const users = await getAllUsers();
 
-  // const exists = users.filter((item: UserDto) => item.name === user.name);
-  // if (exists.length) {
-  //   throw ("Duplicate entry");
-  // }
-
   users.push(user);
-
   await redisClient.setAsync(config.user, JSON.stringify(users));
 
   return user;

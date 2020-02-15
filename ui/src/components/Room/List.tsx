@@ -3,24 +3,24 @@ import { List, ListItem } from '@material-ui/core';
 import RoomDto from '../../models/Room.dto';
 import { useChat } from '../../ChatContext';
 import config from '../../config';
-import User from "../../models/User";
+import User from '../../models/User';
 
 interface Props {
-    rooms: RoomDto[];
-    user: User|null;
+  rooms: RoomDto[];
+  user: User | null;
 }
 
 export default function RoomList({ user, rooms }: Props) {
   const chatContext = useChat();
   const onRoomChange = async (roomId: string) => {
-      if (user) {
-          await chatContext.socket.emit('changeRoom', {
-              roomId,
-              userId: user.id,
-          });
+    if (user) {
+      await chatContext.socket.emit('changeRoom', {
+        roomId,
+        userId: user.id,
+      });
 
-          await chatContext.socket.emit('fetchMessages', {userId: user.id});
-      }
+      await chatContext.socket.emit('fetchMessages', { userId: user.id });
+    }
   };
 
   return (

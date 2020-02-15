@@ -5,7 +5,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Avatar } from '@material-ui/core';
 import { useChat } from '../../ChatContext';
-import User from "../../models/User";
+import User from '../../models/User';
 
 interface Props {}
 
