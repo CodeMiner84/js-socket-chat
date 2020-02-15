@@ -14,22 +14,19 @@ export async function messageListeners (io: SocketIO.Server, socket: any) {
       throw Error("You need to connect to room");
     }
 
-    const messages = await getMessages(connectedRoom);
-    await io.sockets.in(connectedRoom).emit(events.GET_MESSAGES, messages);
+    const messages = await getMessages(connectedRoom.id);
+    await io.sockets.in(connectedRoom.id).emit(events.GET_MESSAGES, messages);
     console.log(`Fetched ${messages.length} messages`);
   })
 
   socket.on(events.ADD_MESSAGE, async function (input: InputMessageDto) {
     try {
       console.log('Input message ', input);
-
       const connectedRoom = await getUserRoom(input.userId);
-      if (!connectedRoom) {
+      if (!connectedRoom.id) {
         throw Error("You need to connect to room");
       }
-
       const user = await getUser(input.userId);
-
       const message: MessageDto = {
         id: uuidv4(),
         message: input.message,
@@ -37,11 +34,10 @@ export async function messageListeners (io: SocketIO.Server, socket: any) {
         created: (new Date()).toLocaleString()
       };
 
-      await addMessage(connectedRoom, message);
+      await addMessage(connectedRoom.id, message);
 
-      await io.sockets.in(connectedRoom).emit(events.RECEIVE_MESSAGE, message);
-
-      console.log(`Emit receiveMessage event from ${connectedRoom} with message: ${input.message}`);
+      await io.sockets.in(connectedRoom.id).emit(events.RECEIVE_MESSAGE, message);
+      console.log(`Emit receiveMessage event from ${connectedRoom.id} with message: ${input.message}`);
     } catch (error) {
       console.log('error', error);
     }

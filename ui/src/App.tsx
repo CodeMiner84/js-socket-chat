@@ -75,7 +75,7 @@ const App = () => {
         <>
           {user === undefined && <Login handleSetUser={handleSetUser} user={user} />}
           {user && (
-            <Chat onAddNewRoom={handleAddNewRoom} handleLogout={handleLogout} messages={[...messages]} rooms={rooms} />
+            <Chat user={user} onAddNewRoom={handleAddNewRoom} handleLogout={handleLogout} messages={[...messages]} rooms={rooms} />
           )}
         </>
       )}

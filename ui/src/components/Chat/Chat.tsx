@@ -8,21 +8,25 @@ import MessageInput from './MessageInput';
 import MessagesList from './MessagesList';
 import config from '../../config';
 import MessageDto from '../../models/Message';
+import User from "../../models/User";
 
 interface Props {
   onAddNewRoom: () => void;
   handleLogout: () => void;
   messages: MessageDto[];
+  user: User|null;
   rooms: any;
 }
 
-export default function Chat({ onAddNewRoom, handleLogout, messages, rooms }: Props) {
+export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms }: Props) {
   const chatContext = useChat();
   const initalMessagesState: MessageDto[] = [];
   const [newMessages, setMessages] = useState(initalMessagesState);
 
   const handleMessage = (message: string) => {
-    chatContext.socket.emit('addMessage', { message, userId: localStorage.getItem(config.user) });
+    if (user) {
+      chatContext.socket.emit('addMessage', {message, userId: user.id});
+    }
   };
 
   useEffect(() => {
@@ -48,7 +52,7 @@ export default function Chat({ onAddNewRoom, handleLogout, messages, rooms }: Pr
           <MessageInput handleMessage={handleMessage} />
         </Grid>
         <Grid item xs={12} lg={3}>
-          <Room onAddNewRoom={onAddNewRoom} rooms={rooms} />
+          <Room user={user} onAddNewRoom={onAddNewRoom} rooms={rooms} />
         </Grid>
       </Grid>
     </Container>

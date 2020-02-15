@@ -33,7 +33,8 @@ export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket)
       console.log('Changing room input value', input);
       let roomId = input.roomId;
       if (!roomId) {
-        roomId = await getUserRoom(input.userId);
+        const room = await getUserRoom(input.userId);
+        roomId = room.id;
         console.log('Selecting user room ', roomId);
         if (!roomId) {
           throw Error(`No selected room for user ${input.userId}`);
