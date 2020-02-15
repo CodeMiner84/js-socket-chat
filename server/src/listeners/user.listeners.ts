@@ -22,6 +22,7 @@ export async function listenUsers (socket: any) {
   });
 
   socket.on(events.GET_USERS, async function () {
+    console.log(`START ${events.GET_USERS}`);
     try {
       socket.emit(events.USERS_FETCHED, await getAllUsers());
     } catch (error) {

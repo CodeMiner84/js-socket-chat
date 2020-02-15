@@ -91,6 +91,7 @@ button.dark.MuiButton-root {
 
 #users-list, #rooms-list {
   flex-grow: 1;
+  overflow-y: hidden;
   flex-direction: column;
   display: flex;
   margin-top: 10px;

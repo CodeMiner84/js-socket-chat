@@ -31,7 +31,10 @@ export default function Chat({ onAddNewRoom, handleLogout, messages, rooms }: Pr
       setMessages([...newMessages]);
     });
 
-    chatContext.socket.on('roomChanged', () => setMessages([]));
+    chatContext.socket.on('roomChanged', () => {
+      setMessages([]);
+      chatContext.socket.emit('getUsers');
+    });
   }, [messages]);
 
   return (

@@ -37,8 +37,6 @@ const App = () => {
     });
     // chatContext.socket.emit('fetchMessages', { userId: localStorage.getItem(config.user) });
 
-    chatContext.socket.on('roomChanged', () => setMessages([]));
-
     return () => {
       chatContext.disconnect();
     };
