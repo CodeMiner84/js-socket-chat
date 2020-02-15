@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { List, ListItem } from '@material-ui/core';
 import RoomDto from '../../models/Room.dto';
-import { useChat } from '../../ChatContext';
-import config from '../../config';
+import { useChat } from '../../utils/SocketService';
 import User from '../../models/User';
 
 interface Props {
   rooms: RoomDto[];
-  user: User | null;
+  user: null|User;
 }
 
 export default function RoomList({ user, rooms }: Props) {

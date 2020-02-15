@@ -15,7 +15,7 @@ export default function LogoutButton({ handleLogout }: Props) {
         className="dark"
         color="default"
         startIcon={<AddIcon />}
-        onClick={(e: any) => {
+        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
           e.preventDefault();
           handleLogout();
         }}

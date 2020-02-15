@@ -3,24 +3,23 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import UsersList from '../UsersList';
 import Room from '../Room';
-import { useChat } from '../../ChatContext';
 import MessageInput from './MessageInput';
 import MessagesList from './MessagesList';
 import MessageDto from '../../models/Message';
 import User from '../../models/User';
 import RoomDto from '../../models/Room.dto';
+import { useChat } from '../../utils/SocketService';
 
 interface Props {
   onAddNewRoom: () => void;
   handleLogout: () => void;
   messages: MessageDto[];
-  user: User | null;
-  rooms: any;
+  rooms: RoomDto[];
+  user: null|User;
 }
 
 export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms }: Props) {
   const chatContext = useChat();
-  const initialRoom: null | RoomDto = null;
   const [room, setRoom] = useState();
   const initalMessagesState: MessageDto[] = [];
   const [newMessages, setMessages] = useState(initalMessagesState);

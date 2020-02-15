@@ -1,16 +1,3 @@
-import React from 'react';
-import LogoutButton from './LogoutButton';
-import List from './List';
+import UsersList from './UsersList';
 
-interface Props {
-  handleLogout: () => void;
-}
-
-export default function UsersList({ handleLogout }: Props) {
-  return (
-    <div id="users-list">
-      <LogoutButton handleLogout={handleLogout} />
-      <List />
-    </div>
-  );
-}
+export default UsersList;

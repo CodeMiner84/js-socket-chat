@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 import Container from '@material-ui/core/Container';
-import { useChat } from '../../ChatContext';
+import { useChat } from '../../utils/SocketService';
 
 interface Props {
   backToChat: () => void;
