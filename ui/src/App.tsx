@@ -37,13 +37,15 @@ const App = () => {
     });
     chatContext.socket.emit('fetchMessages', { userId: localStorage.getItem(config.user) });
 
+    chatContext.socket.on('roomChanged', () => setMessages([]));
+
     return () => {
       chatContext.disconnect();
     };
   }, [0]);
 
-  chatContext.socket.on('getMessages', async (newMessages: MessageDto[]) => {
-    await setMessages([...newMessages]);
+  chatContext.socket.on('getMessages', (newMessages: MessageDto[]) => {
+    setMessages([...newMessages]);
   });
 
   const handleSetUser = (newUser: User): void => {

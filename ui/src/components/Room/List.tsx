@@ -11,11 +11,13 @@ interface Props {
 export default function RoomList({ rooms }: Props) {
   const chatContext = useChat();
 
-  const onRoomChange = (roomId: string) => {
-    chatContext.socket.emit('changeRoom', {
+  const onRoomChange = async (roomId: string) => {
+      await chatContext.socket.emit('changeRoom', {
       roomId,
       userId: localStorage.getItem(config.user),
     });
+
+    await chatContext.socket.emit('fetchMessages', { userId: localStorage.getItem(config.user) });
   };
 
   return (
@@ -27,7 +29,7 @@ export default function RoomList({ rooms }: Props) {
             <ListItem
               onClick={() => {
                 onRoomChange(room.id);
-                chatContext.socket.emit('fetchMessages', { userId: localStorage.getItem(config.user) });
+
               }}
             >
               {room.name}

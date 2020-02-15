@@ -21,23 +21,15 @@ export default function Chat({ onAddNewRoom, handleLogout, messages, rooms }: Pr
   const chatContext = useChat();
   const initalMessagesState: MessageDto[] = [];
   const [newMessages, setMessages] = useState(initalMessagesState);
-  // const [counter, setCounter] = useState(0);
-  //
-  // chatContext.socket.on('roomAdded', (newRoom: RoomDto) => {
-  //   setRooms([...rooms, newRoom]);
-  // });
-  //
+
   const handleMessage = (message: string) => {
     chatContext.socket.emit('addMessage', { message, userId: localStorage.getItem(config.user) });
   };
 
   useEffect(() => {
     chatContext.socket.on('receiveMessage', (newMessage: MessageDto) => {
-      console.log('receiveMessage');
-
       newMessages.push(newMessage);
       setMessages([...newMessages]);
-      console.log('newMessages', newMessages);
     });
 
     chatContext.socket.on('roomChanged', () => setMessages([]));
