@@ -26,11 +26,16 @@ const App = () => {
       setUser(userFromStorage);
     }
 
-    chatContext.socket.emit('fetchMessages', { userId: localStorage.getItem(config.user) });
+    if (localStorage.getItem(config.user)) {
+      chatContext.socket.emit('changeRoom', {
+        userId: localStorage.getItem(config.user),
+      });
+    }
     chatContext.socket.emit('getRooms');
     chatContext.socket.on('roomsFetched', (rooms: RoomDto[]) => {
       setRooms(rooms);
     });
+    chatContext.socket.emit('fetchMessages', { userId: localStorage.getItem(config.user) });
 
     return () => {
       chatContext.disconnect();
