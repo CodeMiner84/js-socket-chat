@@ -39,10 +39,10 @@ export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket)
           throw Error(`No selected room for user ${input.userId}`);
         }
       }
+      socket.join(roomId);
       await changeUserRoom(input.userId, roomId);
 
       socket.emit(events.ROOM_CHANGED, roomId);
-      socket.join(roomId);
       console.log(`Join room ${roomId}`);
     } catch (error) {
       console.log('error occurs', error);
