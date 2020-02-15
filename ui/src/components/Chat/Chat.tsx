@@ -6,9 +6,9 @@ import Room from '../Room';
 import { useChat } from '../../ChatContext';
 import MessageInput from './MessageInput';
 import MessagesList from './MessagesList';
-import config from '../../config';
 import MessageDto from '../../models/Message';
 import User from "../../models/User";
+import RoomDto from "../../models/Room.dto";
 
 interface Props {
   onAddNewRoom: () => void;
@@ -20,6 +20,8 @@ interface Props {
 
 export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms }: Props) {
   const chatContext = useChat();
+  const initialRoom: null|RoomDto = null;
+  const [room, setRoom] = useState();
   const initalMessagesState: MessageDto[] = [];
   const [newMessages, setMessages] = useState(initalMessagesState);
 
@@ -35,8 +37,9 @@ export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms
       setMessages([...newMessages]);
     });
 
-    chatContext.socket.on('roomChanged', () => {
+    chatContext.socket.on('roomChanged', (room: RoomDto) => {
       setMessages([]);
+      setRoom(room);
       chatContext.socket.emit('getUsers');
     });
   }, [messages]);
@@ -48,7 +51,7 @@ export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms
           <UsersList handleLogout={handleLogout} />
         </Grid>
         <Grid item xs={12} lg={6} id="messages-box">
-          <MessagesList initialMessages={[...messages, ...newMessages]} />
+          <MessagesList room={room} initialMessages={[...messages, ...newMessages]} />
           <MessageInput handleMessage={handleMessage} />
         </Grid>
         <Grid item xs={12} lg={3}>

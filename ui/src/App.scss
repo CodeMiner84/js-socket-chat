@@ -79,6 +79,7 @@ button.dark.MuiButton-root {
     flex-grow: 1;
     > div.MuiGrid-item {
       flex-grow: 1;
+      height: calc(100vh - 20px);
       display: flex;
     }
   }
@@ -91,18 +92,24 @@ button.dark.MuiButton-root {
 
 #users-list, #rooms-list {
   flex-grow: 1;
-  overflow-y: hidden;
   flex-direction: column;
   display: flex;
   margin-top: 10px;
   width: 100%;
   background: #343C80;
   color: $white;
+  .box {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
   .MuiAvatar-circle {
     background: #444b7f;
     font-size: 14px;
   }
   ul.MuiList-root {
+    overflow-y: auto;
+    flex: 1;
     li {
       padding: 10px 10px;
       list-style-type: none;
@@ -121,18 +128,31 @@ button.dark.MuiButton-root {
 #messages-box {
   flex-direction: column;
   display: flex;
-  height: calc(100vh - 20px);
+  height: calc(100vh - 30px) !important;
   margin-top: 10px;
 }
 
 #messages {
-  overflow-y: scroll;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   background: $white;
-  padding: 20px;
   width: 100%;
+  .room-header {
+    font-size: 12px;
+    background: #F9F9F9;
+    border-bottom: 2px solid #E0E0E0;
+    width: 100%;
+    padding: 20px;
+  }
+  ul {
+    overflow-y: auto;
+    flex-direction: column;
+    display: flex;
+    flex-grow: 1;
+    padding: 20px 10px;
+  }
 }
 
 #message-input {
