@@ -30,7 +30,7 @@ const App = () => {
     };
   }, [0]);
 
-  chatContext.socket.on('getMessages', (newMessages: MessageDto[]) => {
+  chatContext.socket.on('messagesFetched', (newMessages: MessageDto[]) => {
     setMessages([...newMessages]);
   });
 
