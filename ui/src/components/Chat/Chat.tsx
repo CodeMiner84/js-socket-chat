@@ -31,7 +31,7 @@ export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms
   };
 
   useEffect(() => {
-    chatContext.socket.on('receiveMessage', (newMessage: MessageDto) => {
+    chatContext.socket.on('messageReceived', (newMessage: MessageDto) => {
       newMessages.push(newMessage);
       setMessages([...newMessages]);
     });

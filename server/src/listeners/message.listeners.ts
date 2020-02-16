@@ -34,7 +34,7 @@ export async function messageListeners (io: SocketIO.Server, socket: SocketIO.So
 
       await addMessage(connectedRoom.id, message);
 
-      await io.sockets.in(connectedRoom.id).emit(events.RECEIVE_MESSAGE, message);
+      await io.sockets.in(connectedRoom.id).emit(events.MESSAGE_RECEIVED, message);
     } catch (error) {
       console.log('error', error);
     }
