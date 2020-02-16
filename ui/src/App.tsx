@@ -21,8 +21,8 @@ const App = () => {
 
   useEffect(() => {
     chatContext.socket.emit('getRooms');
-    chatContext.socket.on('roomsFetched', (rooms: RoomDto[]) => {
-      setRooms(rooms);
+    chatContext.socket.on('roomsFetched', (fetchedRooms: RoomDto[]) => {
+      setRooms(fetchedRooms);
     });
 
     return () => {

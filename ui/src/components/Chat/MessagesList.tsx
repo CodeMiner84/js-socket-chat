@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ListItem } from '@material-ui/core';
 import List from '@material-ui/core/List';
-import Message from '../../models/MessageDto';
 import MessageDto from '../../models/MessageDto';
 import RoomDto from '../../models/RoomDto';
 
@@ -15,7 +14,7 @@ export default function MessagesList({ room, initialMessages }: Props) {
     <div id="messages">
       <div className="room-header">{room ? room.name : null}</div>
       <List>
-        {initialMessages.map((message: Message) => {
+        {initialMessages.map((message: MessageDto) => {
           return (
             <ListItem>
               <div>

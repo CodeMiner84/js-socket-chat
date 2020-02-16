@@ -8,8 +8,8 @@ interface Props {
 export default function MessageInput({ handleMessage }: Props) {
   const [message, setMessage] = useState();
 
-  const onTyping = (message: string) => {
-    setMessage(message);
+  const onTyping = (typingMessage: string) => {
+    setMessage(typingMessage);
   };
 
   return (

@@ -7,15 +7,13 @@ import { Avatar } from '@material-ui/core';
 import { useChat } from '../../utils/SocketService';
 import UserDto from '../../models/UserDto';
 
-interface Props {}
-
-export default function UsersList({}: Props) {
+export default function UsersList() {
   const chatContext = useChat();
   const initialState: UserDto[] = [];
   const [users, setUsers] = useState(initialState);
 
-  chatContext.socket.on('usersFetched', (users: UserDto[]) => {
-    setUsers(users);
+  chatContext.socket.on('usersFetched', (fetchedUsers: UserDto[]) => {
+    setUsers(fetchedUsers);
   });
 
   return (
