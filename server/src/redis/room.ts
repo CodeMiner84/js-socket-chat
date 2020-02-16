@@ -27,7 +27,6 @@ export async function addRoom(room: RoomDto): Promise<RoomDto> {
   }
 
   rooms.push(room);
-
   await redisClient.setAsync(config.room, JSON.stringify(rooms));
 
   return room;

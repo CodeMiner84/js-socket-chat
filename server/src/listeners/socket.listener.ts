@@ -1,15 +1,15 @@
 import * as express from "express";
-import {createServer, Server} from "http";
+import * as logger from "morgan";
+import * as path from "path";
 import * as SocketIO from "socket.io";
+import {createServer, Server} from "http";
 import {listenRooms} from "./room.listeners";
 import {listenUsers} from "./user.listeners";
 import {messageListeners} from "./message.listeners";
-import * as logger from "morgan";
-import * as path from "path";
 
 export default class SocketListener {
-  private server: Server = {} as Server;
-  private io: SocketIO.Server;
+  private readonly server: Server = {} as Server;
+  private readonly io: SocketIO.Server;
   private port: number = 8080;
 
   public constructor() {
