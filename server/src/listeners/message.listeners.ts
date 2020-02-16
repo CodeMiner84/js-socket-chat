@@ -15,7 +15,7 @@ export async function messageListeners (io: SocketIO.Server, socket: SocketIO.So
     }
 
     const messages = await getMessages(connectedRoom.id);
-    await io.sockets.in(connectedRoom.id).emit(events.MESSAGES_FETCHED, messages);
+    await socket.emit(events.MESSAGES_FETCHED, messages);
   })
 
   socket.on(events.ADD_MESSAGE, async function (input: InputMessageDto) {
