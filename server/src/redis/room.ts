@@ -1,9 +1,9 @@
 import redisClient, { client }  from '../redis-client';
-import config from '../config';
+import tables from '../config/tables';
 import RoomDto from "../models/room.dto";
 
 export async function getAllRooms(): Promise<RoomDto[]> {
-  const rawRooms = await redisClient.getAsync(config.room);
+  const rawRooms = await redisClient.getAsync(tables.room);
 
   return JSON.parse(rawRooms) || [];
 }
@@ -27,7 +27,7 @@ export async function addRoom(room: RoomDto): Promise<RoomDto> {
   }
 
   rooms.push(room);
-  await redisClient.setAsync(config.room, JSON.stringify(rooms));
+  await redisClient.setAsync(tables.room, JSON.stringify(rooms));
 
   return room;
 }
