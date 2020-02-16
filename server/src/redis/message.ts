@@ -3,9 +3,7 @@ import config from '../config';
 import MessageDto from "../models/message.dto";
 
 export async function addMessage(roomId: string, messaege: MessageDto): Promise<MessageDto> {
-    await client.rpush(`${config.message}_${roomId}`, JSON.stringify(messaege));
-
-    return messaege;
+    return await client.rpush(`${config.message}_${roomId}`, JSON.stringify(messaege));
 }
 
 export async function getMessages(roomId: string,): Promise<MessageDto[]> {
