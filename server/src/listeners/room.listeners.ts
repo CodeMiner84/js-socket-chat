@@ -16,7 +16,7 @@ export async function listenRooms (io: SocketIO.Server, socket: SocketIO.Socket)
       };
       await addRoom(room);
 
-      io.sockets.emit(events.ROOM_ADDED, room);
+      io.sockets.emit(events.ROOM_ADDED, await getAllRooms());
     } catch (error) {
       socket.emit(events.ROOM_ALREADY_EXISTS);
     }

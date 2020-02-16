@@ -46,9 +46,9 @@ const App = () => {
     settingNewRoom(true);
   };
 
-  chatContext.socket.on('roomAdded', (newRoom: RoomDto) => {
+  chatContext.socket.on('roomAdded', (roomsList: RoomDto[]) => {
     settingNewRoom(false);
-    setRooms([...rooms, newRoom]);
+    setRooms(roomsList);
   });
 
   const backToChat = (): void => {
