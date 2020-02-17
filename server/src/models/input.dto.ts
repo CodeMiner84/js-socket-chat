@@ -1,3 +1,3 @@
-export default interface InputDto {
+export default class InputDto {
   value: string;
 }

@@ -3,7 +3,9 @@ import tables from '../config/tables';
 import MessageDto from "../models/message.dto";
 
 export async function addMessage(roomId: string, messaege: MessageDto): Promise<MessageDto> {
-    return await client.rpush(`${tables.message}_${roomId}`, JSON.stringify(messaege));
+    client.rpush(`${tables.message}_${roomId}`, JSON.stringify(messaege));
+
+    return messaege;
 }
 
 export async function getMessages(roomId: string,): Promise<MessageDto[]> {

@@ -1,6 +1,6 @@
-const redis = require('redis');
-const {promisify} = require('util');
-export const client = redis.createClient(process.env.REDIS_URL);
+import * as redis from 'redis';
+import { promisify } from 'util';
+export const client = redis.createClient(process.env.REDIS_URL || 'redis://cache');
 
 export default {
   ...client,

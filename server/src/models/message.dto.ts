@@ -1,4 +1,4 @@
-export default interface MessageDto {
+export default class MessageDto {
   id: string;
   message: string;
   user: string;
