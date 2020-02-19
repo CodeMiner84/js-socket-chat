@@ -9,12 +9,10 @@ import {
 import * as uuidv4 from 'uuid/v4';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
-import {redis} from "../redis";
 import {UserService} from "../user/user.service";
 
 @WebSocketGateway()
 export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
-
   constructor(
     private readonly userService: UserService
   ) {
@@ -31,10 +29,7 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
 
   @SubscribeMessage('setUser')
   async setUser(client: Socket, payload: any): Promise<void> {
-
-    const user = await this.userService.addUser(payload);
-
-    client.emit('userAdded', user);
+    client.emit('userAdded', await this.userService.addUser(payload));
   }
 
   afterInit(server: Server) {
