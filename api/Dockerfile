@@ -5,6 +5,8 @@ WORKDIR /usr/app
 COPY package*.json ./
 RUN yarn install --frozen-lockfile
 
+RUN npm i -g @nestjs/cli
+
 COPY . .
 
 EXPOSE 8080
