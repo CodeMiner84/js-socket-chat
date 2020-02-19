@@ -28,6 +28,7 @@
     "@nestjs/platform-ws": "^6.11.7",
     "@nestjs/websockets": "^6.11.7",
     "@types/socket.io-redis": "^1.0.25",
+    "@types/uuid": "^3.4.7",
     "connect-redis": "^4.0.4",
     "express-session": "^1.17.0",
     "ioredis": "^4.16.0",
@@ -36,7 +37,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.4",
-    "socket.io-redis": "^5.2.0"
+    "socket.io-redis": "^5.2.0",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.13.2",

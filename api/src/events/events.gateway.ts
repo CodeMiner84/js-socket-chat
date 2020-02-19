@@ -6,8 +6,10 @@ import {
   OnGatewayConnection,
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
+import * as uuidv4 from 'uuid/v4';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
+import {redis} from "../redis";
 
 @WebSocketGateway()
 export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -19,6 +21,17 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
   handleMessage(client: Socket, payload: string): void {
     console.log('msgToServer', payload);
     this.server.emit('msgToClient', payload);
+  }
+
+  @SubscribeMessage('setUser')
+  async setUser(client: Socket, payload: any): Promise<void> {
+    const user: any = {
+      id: uuidv4(),
+      name: payload.value,
+    };
+
+    await redis.sadd('user', JSON.stringify(user));
+    client.emit('userAdded', user);
   }
 
   afterInit(server: Server) {
