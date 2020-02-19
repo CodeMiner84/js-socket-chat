@@ -10,9 +10,15 @@ import * as uuidv4 from 'uuid/v4';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
 import {redis} from "../redis";
+import {UserService} from "../user/user.service";
 
 @WebSocketGateway()
 export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+
+  constructor(
+    private readonly userService: UserService
+  ) {
+  }
 
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('AppGateway');
@@ -25,12 +31,9 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
 
   @SubscribeMessage('setUser')
   async setUser(client: Socket, payload: any): Promise<void> {
-    const user: any = {
-      id: uuidv4(),
-      name: payload.value,
-    };
 
-    await redis.sadd('user', JSON.stringify(user));
+    const user = await this.userService.addUser(payload);
+
     client.emit('userAdded', user);
   }
 
