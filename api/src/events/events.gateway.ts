@@ -27,11 +27,6 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     this.server.emit('msgToClient', payload);
   }
 
-  @SubscribeMessage('setUser')
-  async setUser(client: Socket, payload: any): Promise<void> {
-    client.emit('userAdded', await this.userService.addUser(payload));
-  }
-
   afterInit(server: Server) {
     this.logger.log('Init');
   }
