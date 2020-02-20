@@ -4,6 +4,8 @@ import {UserGateway} from "./user.gateway";
 import {RoomService} from "../room/room.service";
 
 @Module({
-  providers: [RoomService, UserService, UserGateway],
+  exports: [],
+  imports: [],
+  providers: [ UserGateway, RoomService, UserService],
 })
 export class UserModule {}

@@ -25,11 +25,22 @@ export class UserService {
     return user;
   }
 
+  async getUser(userId: string): Promise<UserModel> {
+    const user = (await this.getAllUsers()).filter((user: UserModel) => {
+      return user.id === userId;
+    });
+    if (!user) {
+      throw Error("User does not exists");
+    }
+
+    return user[0];
+  }
+
   async changeUserRoom(userId: string, roomId: string): Promise<void> {
     await redis.hset('user_room', userId, roomId);
   }
 
-  async getUserRoom(userId: string): Promise<RoomModel> {
+  async getUserRoom(userId: string): Promise<any> {
     const userRoomId = await redis.hget('user_room', userId) as string;
 
     return this.roomService.getRoom(userRoomId);

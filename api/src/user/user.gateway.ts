@@ -3,7 +3,7 @@ import {
   WebSocketGateway,
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
-import {UserService} from "../user/user.service";
+import {UserService} from "./user.service";
 
 @WebSocketGateway()
 export class UserGateway {
