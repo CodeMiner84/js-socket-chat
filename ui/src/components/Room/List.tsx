@@ -22,6 +22,7 @@ export default function RoomList({ user, rooms }: Props) {
     }
   };
 
+
   return (
     <div className="box">
       <div className="box-header">AVAILABLE ROOMS:</div>
