@@ -6,17 +6,11 @@ import {
   OnGatewayConnection,
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
-import * as uuidv4 from 'uuid/v4';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
-import {UserService} from "../user/user.service";
 
 @WebSocketGateway()
 export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
-  constructor(
-    private readonly userService: UserService
-  ) {
-  }
 
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('AppGateway');
