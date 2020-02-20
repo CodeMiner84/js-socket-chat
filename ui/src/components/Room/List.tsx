@@ -22,7 +22,6 @@ export default function RoomList({ user, rooms }: Props) {
     }
   };
 
-  console.log('rooms', rooms);
 
   return (
     <div className="box">
