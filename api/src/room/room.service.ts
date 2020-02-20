@@ -26,5 +26,15 @@ export class RoomService {
       console.log('error.message', error.message);
     }
   }
+
+  async getRoom(roomId: string): Promise<RoomModel> {
+    const room = (await this.getRooms()).filter((room: RoomModel) => room.id === roomId);
+
+    if (!room) {
+      throw Error("Room does not exists");
+    }
+
+    return room[0];
+  }
 }
 

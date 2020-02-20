@@ -21,7 +21,7 @@ export default function RoomList({ user, rooms }: Props) {
       await chatContext.socket.emit('fetchMessages', { value: user.id });
     }
   };
-  
+
   console.log('rooms', rooms);
 
   return (

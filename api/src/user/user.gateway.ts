@@ -15,4 +15,12 @@ export class UserGateway {
   async setUser(client: Socket, payload: any): Promise<void> {
     client.emit('userAdded', await this.userService.addUser(payload));
   }
+
+  @SubscribeMessage('getUsers')
+  async getUsers(client: Socket, payload: any): Promise<void> {
+    try {
+      client.emit('usersFetched', await this.userService.getAllUsers());
+    } catch (error) {
+    }
+  }
 }
