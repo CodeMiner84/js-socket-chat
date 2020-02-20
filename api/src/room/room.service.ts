@@ -5,7 +5,7 @@ import InputModel from "../common/input.model";
 
 @Injectable()
 export class RoomService {
-  async addRoom(payload: InputModel): Promise<RoomModel> {
+  async addRoom(payload: InputModel): Promise<RoomModel[]> {
     const room = new RoomModel(payload.value);
 
     try {
@@ -14,7 +14,17 @@ export class RoomService {
       console.log('error.message', error.message);
     }
 
-    return room;
+    return this.getRooms();
+  }
+
+  async getRooms(): Promise<RoomModel[]> {
+    try {
+      const rooms = await redis.smembers('room');
+
+      return rooms.map((room: string) => JSON.parse(room));
+    } catch (error) {
+      console.log('error.message', error.message);
+    }
   }
 }
 
