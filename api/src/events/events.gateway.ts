@@ -17,7 +17,6 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
 
   @SubscribeMessage('msgToServer')
   handleMessage(client: Socket, payload: string): void {
-    console.log('msgToServer', payload);
     this.server.emit('msgToClient', payload);
   }
 

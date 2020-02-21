@@ -3,17 +3,20 @@ import * as uuidv4 from "uuid/v4";
 export default class MessageModel {
   public id: string;
   public message: string;
-  public user: string;
+  public userId: string;
+  public userName: string;
   public created: string;
 
   public constructor(
     message: string,
-    user: string,
+    userId: string,
+    userName: string,
     created: string
   ) {
     this.id = uuidv4();
     this.message = message;
-    this.user = user;
+    this.userId = userId;
+    this.userName = userName;
     this.created = created;
   }
 }

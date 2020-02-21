@@ -28,13 +28,15 @@ export class MessageGateway {
   @SubscribeMessage('addMessage')
   async addMessage(client: Socket, payload: MessageModel): Promise<void> {
     try {
-      const connectedRoom = await this.userService.getUserRoom(payload.user);
+      console.log('payload', payload);
+      const connectedRoom = await this.userService.getUserRoom(payload.userId);
       if (!connectedRoom.id) {
         throw Error("You need to connect to room");
       }
-      const user = await this.userService.getUser(payload.user);
+      const user = await this.userService.getUser(payload.userId);
       const message = new MessageModel(
         payload.message,
+        user.id,
         user.name,
         (new Date()).toLocaleString()
       );
