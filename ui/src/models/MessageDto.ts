@@ -1,6 +1,7 @@
 export default interface MessageDto {
   id: string;
   message: string;
-  user: string;
+  userId: string;
+  userName: string;
   created: string;
 }

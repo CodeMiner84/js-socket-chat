@@ -6,7 +6,7 @@ import UserDto from '../../models/UserDto';
 
 interface Props {
   rooms: RoomDto[];
-  user: null | UserDto;
+  user: null | string;
 }
 
 export default function RoomList({ user, rooms }: Props) {
@@ -15,10 +15,10 @@ export default function RoomList({ user, rooms }: Props) {
     if (user) {
       await chatContext.socket.emit('changeRoom', {
         roomId,
-        userId: user.id,
+        userId: user,
       });
 
-      await chatContext.socket.emit('fetchMessages', { value: user.id });
+      await chatContext.socket.emit('fetchMessages', { value: user });
     }
   };
 

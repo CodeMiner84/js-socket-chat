@@ -6,7 +6,6 @@ import Room from '../Room';
 import MessageInput from './MessageInput';
 import MessagesList from './MessagesList';
 import MessageDto from '../../models/MessageDto';
-import UserDto from '../../models/UserDto';
 import RoomDto from '../../models/RoomDto';
 import { useChat } from '../../utils/SocketService';
 
@@ -15,7 +14,7 @@ interface Props {
   handleLogout: () => void;
   messages: MessageDto[];
   rooms: RoomDto[];
-  user: null | UserDto;
+  user: null | string;
 }
 
 export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms }: Props) {
@@ -26,7 +25,7 @@ export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms
 
   const handleMessage = (message: string) => {
     if (user) {
-      chatContext.socket.emit('addMessage', { message, user: user.id });
+      chatContext.socket.emit('addMessage', { message, userId: user });
     }
   };
 

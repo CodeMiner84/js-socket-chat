@@ -19,7 +19,7 @@ export default function MessagesList({ room, initialMessages }: Props) {
             <ListItem>
               <div>
                 <div className="user-date">
-                  <span className="user">{message.user}</span>
+                  <span className="user">{message.userName}</span>
                   <span className="date">{message.created}</span>
                 </div>
                 <p>{message.message}</p>

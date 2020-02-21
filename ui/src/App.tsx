@@ -20,6 +20,16 @@ const App = () => {
   const [messages, setMessages] = useState(initalMessagesState);
 
   useEffect(() => {
+    const userFromStorage = localStorage.getItem('user');
+    if (userFromStorage) {
+      setUser(userFromStorage);
+    }
+
+    if (localStorage.getItem('user')) {
+      chatContext.socket.emit('changeRoom', {
+        userId: localStorage.getItem('user'),
+      });
+    }
     chatContext.socket.emit('getRooms');
     chatContext.socket.on('roomsFetched', (fetchedRooms: RoomDto[]) => {
       setRooms(fetchedRooms);
@@ -35,11 +45,13 @@ const App = () => {
   });
 
   const handleSetUser = (newUser: UserDto): void => {
-    setUser(newUser);
+    setUser(newUser.id);
+    localStorage.setItem('user', newUser.id);
   };
 
   const handleLogout = () => {
     setUser(undefined);
+    localStorage.removeItem('user');
   };
 
   const handleAddNewRoom = (): void => {

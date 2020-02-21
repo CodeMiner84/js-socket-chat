@@ -7,7 +7,7 @@ import UserDto from '../../models/UserDto';
 interface Props {
   onAddNewRoom: () => void;
   rooms: RoomDto[];
-  user: null | UserDto;
+  user: null | string;
 }
 
 export default function Room({ user, onAddNewRoom, rooms }: Props) {
