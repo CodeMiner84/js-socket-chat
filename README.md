@@ -31,7 +31,7 @@ TODO:
 - [ ] Disable message button when use is not connected to room
 - [ ] Keep selected room when new room is added
 - [ ] Possibility to remove created rooms
-- [ ] Change redis user table from string to list
-- [ ] Change redis room table from string to list
+- [x] Change redis user table from string to list
+- [x] Change redis room table from string to list
 - [ ] Optimize redis
 - [ ] Add logging of every action made in server
