@@ -20,7 +20,6 @@ export class RoomGateway {
 
   @SubscribeMessage('getRooms')
   async getRooms(client: Socket): Promise<void> {
-    console.log('getRooms');
     client.emit('roomsFetched', await this.roomService.getRooms());
   }
 

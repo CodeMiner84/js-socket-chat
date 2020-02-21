@@ -15,6 +15,4 @@ export class MessageService {
 
     return messages.map((message: string) => JSON.parse(message));
   }
-
-
 }

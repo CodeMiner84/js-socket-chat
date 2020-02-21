@@ -26,7 +26,7 @@ export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms
 
   const handleMessage = (message: string) => {
     if (user) {
-      chatContext.socket.emit('addMessage', { message, userId: user.id });
+      chatContext.socket.emit('addMessage', { message, user: user.id });
     }
   };
 
