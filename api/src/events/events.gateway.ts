@@ -9,12 +9,17 @@ import {
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
 import {RoomService} from "../room/room.service";
+import {MessageService} from "../message/message.service";
+import MessageFactory from "../message/message.factory";
+import {UserService} from "../user/user.service";
 
 @WebSocketGateway()
 export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
 
   public constructor(
-    private readonly roomService: RoomService
+    private readonly roomService: RoomService,
+    private readonly userService: UserService,
+    private readonly messageService: MessageService
   ) {}
 
   @WebSocketServer() server: Server;
@@ -29,10 +34,16 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     this.logger.log('Init');
   }
 
-  handleDisconnect(client: Socket | any) {
+  async handleDisconnect(client: Socket | any) {
     if (client.username !== undefined) {
       this.logger.log(`Client disconnected: ${client.id}, and user ${client.username}`);
-      this.roomService.removeUserFromRoom(client.username);
+      const connectedRoomId = await this.roomService.getConnectedRoom(client.username);
+
+      const user = await this.userService.getUser(client.username);
+      const message = MessageFactory.createDisconnectedNotification(user.id, user.name);
+
+      client.broadcast.in(connectedRoomId).emit('incomingNotification', message);
+      await this.roomService.removeUserFromRoom(client.username);
     }
   }
 

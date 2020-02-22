@@ -36,6 +36,10 @@ const App = () => {
     };
   }, [0]);
 
+  chatContext.socket.on('userDisconnected', (newMessage: MessageDto) => {
+    console.log('userDisconnected', newMessage);
+  });
+
   chatContext.socket.on('messagesFetched', (newMessages: MessageDto[]) => {
     setMessages([...newMessages]);
   });

@@ -2,6 +2,9 @@ import {Injectable} from '@nestjs/common';
 import {redis} from "../redis";
 import RoomModel from "./room.model";
 import InputModel from "../common/input.model";
+import {Socket} from "socket.io";
+import UserModel from "../user/user.model";
+import MessageFactory from "../message/message.factory";
 
 @Injectable()
 export class RoomService {
@@ -37,8 +40,42 @@ export class RoomService {
     return room[0];
   }
 
-  async removeUserFromRoom (payload: any): Promise<void> {
-    await redis.hdel('user_room', payload);
+  async getConnectedRoom (userId: string): Promise<null|string> {
+    return await redis.hget('user_room', userId);
+  }
+
+  async removeUserFromRoom (userId: any): Promise<void> {
+    await redis.hdel('user_room', userId);
+  }
+
+  async broadcastConnectedMessage(
+    client: Socket,
+    previousRoom: string,
+    currentRoom: string,
+    user: UserModel
+  ): Promise<void> {
+    if (previousRoom !== currentRoom)
+    {
+      await client.broadcast.in(previousRoom).emit(
+        'incomingNotification',
+        MessageFactory.createConnectedNotification(user.id, user.name)
+      );
+    }
+  }
+
+  async broadcastDisconnectedMessage(
+    client: Socket,
+    previousRoom: string,
+    currentRoom: string,
+    user: UserModel
+  ): Promise<void> {
+    if (previousRoom !== currentRoom)
+    {
+      await client.broadcast.in(previousRoom).emit(
+        'incomingNotification',
+        MessageFactory.createDisconnectedNotification(user.id, user.name)
+      );
+    }
   }
 }
 

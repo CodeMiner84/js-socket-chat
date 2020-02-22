@@ -6,17 +6,19 @@ export default class MessageModel {
   public userId: string;
   public userName: string;
   public created: string;
+  public info: boolean;
 
   public constructor(
     message: string,
     userId: string,
     userName: string,
-    created: string
+    info?: boolean
   ) {
     this.id = uuidv4();
     this.message = message;
     this.userId = userId;
     this.userName = userName;
-    this.created = created;
+    this.created = (new Date()).toLocaleString();
+    this.info = info || false;
   }
 }

@@ -35,6 +35,13 @@ export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms
       setMessages([...newMessages]);
     });
 
+    chatContext.socket.on('incomingNotification', (newMessage: MessageDto) => {
+      if (newMessage.userId !== localStorage.getItem('user')) {
+        newMessages.push(newMessage);
+        setMessages([...newMessages]);
+      }
+    });
+
     chatContext.socket.on('roomChanged', (changedRoom: RoomDto) => {
       setMessages([]);
       setRoom(changedRoom);

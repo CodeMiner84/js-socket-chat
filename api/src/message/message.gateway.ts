@@ -37,13 +37,12 @@ export class MessageGateway {
       const message = new MessageModel(
         payload.message,
         user.id,
-        user.name,
-        (new Date()).toLocaleString()
+        user.name
       );
 
-      await this.messageService.addMessage(connectedRoom.id, message);
-
-      await client.server.sockets.in(connectedRoom.id).emit('messageReceived', message);
+      await client.server.sockets.in(connectedRoom.id).emit('messageReceived',
+        await this.messageService.addMessage(connectedRoom.id, message)
+      );
     } catch (error) {
       console.log('error', error);
     }

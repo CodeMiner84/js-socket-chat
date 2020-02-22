@@ -157,6 +157,11 @@ button.dark.MuiButton-root {
       div {
         width: 100% !important;
       }
+      .info {
+        font-size: 12px;
+        text-align: right;
+        color: rgba(0, 0, 0, 0.34);
+      }
       .user-date {
         display: flex;
         flex: 1;

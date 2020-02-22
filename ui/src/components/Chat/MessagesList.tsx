@@ -10,6 +10,7 @@ interface Props {
 }
 
 export default function MessagesList({ room, initialMessages }: Props) {
+  console.log('initialMessages', initialMessages);
   return (
     <div id="messages">
       <div className="room-header">{room ? room.name : null}</div>
@@ -17,13 +18,20 @@ export default function MessagesList({ room, initialMessages }: Props) {
         {initialMessages.map((message: MessageDto) => {
           return (
             <ListItem>
-              <div>
-                <div className="user-date">
-                  <span className="user">{message.userName}</span>
-                  <span className="date">{message.created}</span>
+              {message.info && (
+                <div className="info">
+                  {message.message}
                 </div>
-                <p>{message.message}</p>
-              </div>
+              )}
+              {!message.info && (
+                <div>
+                  <div className="user-date">
+                    <span className="user">{message.userName}</span>
+                    <span className="date">{message.created}</span>
+                  </div>
+                  <p>{message.message}</p>
+                </div>
+              )}
             </ListItem>
           );
         })}

@@ -4,4 +4,5 @@ export default interface MessageDto {
   userId: string;
   userName: string;
   created: string;
+  info?: string;
 }
