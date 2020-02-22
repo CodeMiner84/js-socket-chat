@@ -27,7 +27,7 @@ TODO:
 - [ ] Show online / offline users in user list
 - [ ] Show user only connected to selected room
 - [ ] Add typing mechanism when someone is typing message
-- [ ] Inform in chate message window who is joining/leaving room
+- [x] Inform in chat message window who is joining/leaving room
 - [ ] Disable message button when use is not connected to room
 - [ ] Keep selected room when new room is added
 - [ ] Possibility to remove created rooms
