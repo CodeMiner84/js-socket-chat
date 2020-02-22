@@ -22,10 +22,10 @@ docker-compose up -d
 UI is available on [http://localhost:3000](http://localhost:3000)
 
 TODO:
-- [ ] Kepp logged user in cookie or localStorage
-- [ ] Store online / offline user in redis
+- [x] Kepp logged user in cookie or localStorage
+- [x] Store online / offline user in redis
 - [ ] Show online / offline users in user list
-- [ ] Show user only connected to selected room
+- [x] Show user only connected to selected room
 - [ ] Add typing mechanism when someone is typing message
 - [x] Inform in chat message window who is joining/leaving room
 - [ ] Disable message button when use is not connected to room
