@@ -8,7 +8,9 @@ export default class SocketService {
     this.socket = io(process.env.REACT_APP_API_URL as string);
   }
 
-  public disconnect(): void {}
+  public disconnect(): void {
+    this.socket.emit('disconnect');
+  }
 }
 
 export const ChatContext: React.Context<SocketService> = createContext(new SocketService());
