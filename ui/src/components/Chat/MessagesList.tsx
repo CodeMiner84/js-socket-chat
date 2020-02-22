@@ -17,11 +17,7 @@ export default function MessagesList({ room, initialMessages }: Props) {
         {initialMessages.map((message: MessageDto) => {
           return (
             <ListItem>
-              {message.info && (
-                <div className="info">
-                  {message.message}
-                </div>
-              )}
+              {message.info && <div className="info">{message.message}</div>}
               {!message.info && (
                 <div>
                   <div className="user-date">
