@@ -1,19 +1,5 @@
 version: "3"
 services:
-#    server:
-#        container_name: chat-server
-#        build:
-#            context: ./server/
-#        ports:
-#            - "8180:8080"
-#        volumes:
-#            - ./server:/usr/app
-#        links:
-#            - redis
-#        environment:
-#            - REDIS_URL=redis://cache
-#            - NODE_ENV=development
-#            - CHOKIDAR_USEPOLLING=true
     api:
         container_name: chat-api
         build:
