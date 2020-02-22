@@ -57,7 +57,7 @@ export default function Chat({ user, onAddNewRoom, handleLogout, messages, rooms
         </Grid>
         <Grid item xs={12} lg={6} id="messages-box">
           <MessagesList room={room} initialMessages={[...messages, ...newMessages]} />
-          <MessageInput handleMessage={handleMessage} />
+          <MessageInput room={room} handleMessage={handleMessage} />
         </Grid>
         <Grid item xs={12} lg={3}>
           <Room user={user} onAddNewRoom={onAddNewRoom} rooms={rooms} />
