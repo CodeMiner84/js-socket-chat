@@ -28,7 +28,7 @@ TODO:
 - [x] Show user only connected to selected room
 - [ ] Add typing mechanism when someone is typing message
 - [x] Inform in chat message window who is joining/leaving room
-- [ ] Disable message button when use is not connected to room
+- [x] Disable message button when use is not connected to room
 - [ ] Keep selected room when new room is added
 - [ ] Possibility to remove created rooms
 - [x] Change redis user table from string to set
