@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
 import Chat from './components/Chat';
 import './App.scss';
@@ -23,13 +23,9 @@ const App = () => {
     const userFromStorage = localStorage.getItem('user');
     if (userFromStorage) {
       setUser(userFromStorage);
+      chatContext.socket.emit('reconnected', { value: userFromStorage });
     }
 
-    if (localStorage.getItem('user')) {
-      chatContext.socket.emit('changeRoom', {
-        userId: localStorage.getItem('user'),
-      });
-    }
     chatContext.socket.emit('getRooms');
     chatContext.socket.on('roomsFetched', (fetchedRooms: RoomDto[]) => {
       setRooms(fetchedRooms);

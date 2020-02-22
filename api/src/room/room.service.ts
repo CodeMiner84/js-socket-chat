@@ -36,5 +36,9 @@ export class RoomService {
 
     return room[0];
   }
+
+  async removeUserFromRoom (payload: any): Promise<void> {
+    await redis.hdel('user_room', payload);
+  }
 }
 

@@ -8,9 +8,14 @@ import {
 } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
+import {RoomService} from "../room/room.service";
 
 @WebSocketGateway()
 export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+
+  public constructor(
+    private readonly roomService: RoomService
+  ) {}
 
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('AppGateway');
@@ -24,8 +29,11 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
     this.logger.log('Init');
   }
 
-  handleDisconnect(client: Socket) {
-    this.logger.log(`Client disconnected: ${client.id}`);
+  handleDisconnect(client: Socket | any) {
+    if (client.username !== undefined) {
+      this.logger.log(`Client disconnected: ${client.id}, and user ${client.username}`);
+      this.roomService.removeUserFromRoom(client.username);
+    }
   }
 
   handleConnection(client: Socket, ...args: any[]) {

@@ -12,12 +12,18 @@ export class UserGateway {
   ) {}
 
   @SubscribeMessage('setUser')
-  async setUser(client: Socket, payload: any): Promise<void> {
+  async setUser(client: Socket | any, payload: any): Promise<void> {
+    client.username = payload.value;
     client.emit('userAdded', await this.userService.addUser(payload));
   }
 
+  @SubscribeMessage('reconnected')
+  async reconnectUser(client: Socket | any, payload: any): Promise<void> {
+    client.username = payload.value;
+  }
+
   @SubscribeMessage('getUsers')
-  async getUsers(client: Socket, payload: any): Promise<void> {
+  async getUsers(client: Socket): Promise<void> {
     try {
       client.emit('usersFetched', await this.userService.getAllUsers());
     } catch (error) {
