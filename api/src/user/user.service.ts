@@ -16,6 +16,29 @@ export class UserService {
     return users.map((user: string) => JSON.parse(user));
   }
 
+  async getAllUsersFromRoom(roomId: any): Promise<UserModel[]> {
+    try {
+      const getAllConnectedUsers: any = await redis.hgetall('user_room');
+      const roomKeys = Object.values(getAllConnectedUsers);
+      const results: any = await Object.keys(getAllConnectedUsers).map(async (user: any, index: number) => {
+        if (roomKeys[index] === roomId.roomId) {
+          const users = await redis.sscan('user', 0, 'match', `{\"id\":\"${user}*`);
+          if (undefined !== users[1][0]) {
+            return users[1][0];
+          }
+        }
+      });
+
+      const activeUsers = await Promise.all(results).then((completed) => {
+        return completed;
+      });
+
+      return activeUsers.filter((user: any) => undefined !== user).map((user: string) => JSON.parse(user));
+    } catch (e) {
+      console.log('e.message', e.message);
+    }
+  }
+
   async addUser(payload: any): Promise<UserModel> {
     const user = new UserModel(payload.value);
 

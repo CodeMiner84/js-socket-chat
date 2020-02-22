@@ -23,9 +23,9 @@ export class UserGateway {
   }
 
   @SubscribeMessage('getUsers')
-  async getUsers(client: Socket): Promise<void> {
+  async getUsers(client: Socket, roomId: string): Promise<void> {
     try {
-      client.emit('usersFetched', await this.userService.getAllUsers());
+      await client.server.sockets.emit('usersFetched', await this.userService.getAllUsersFromRoom(roomId));
     } catch (error) {
     }
   }

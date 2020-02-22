@@ -10,7 +10,6 @@ interface Props {
 }
 
 export default function MessagesList({ room, initialMessages }: Props) {
-  console.log('initialMessages', initialMessages);
   return (
     <div id="messages">
       <div className="room-header">{room ? room.name : null}</div>
