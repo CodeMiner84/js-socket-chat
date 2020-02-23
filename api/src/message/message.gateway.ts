@@ -5,9 +5,12 @@ import {UserService} from "../user/user.service";
 import MessageModel from "./message.model";
 import {MessageService} from "./message.service";
 import {Socket} from "socket.io";
+import Logger from "../common/logger.service";
 
 @WebSocketGateway()
 export class MessageGateway {
+  private logger: Logger = new Logger('MessageGateway');
+
   constructor(
     private readonly messageService: MessageService,
     private readonly roomService: RoomService,
@@ -16,6 +19,7 @@ export class MessageGateway {
 
   @SubscribeMessage('fetchMessages')
   async fetchMessages(client: Socket, payload: InputModel): Promise<void> {
+    this.logger.onStartEvent("fetchMessages");
     const connectedRoom = await this.userService.getUserRoom(payload.value);
     if (!connectedRoom) {
       throw Error("You need to connect to room");
@@ -23,12 +27,13 @@ export class MessageGateway {
 
     const messages = await this.messageService.getMessages(connectedRoom.id);
     await client.emit('messagesFetched', messages);
+    this.logger.onLeaveEvent("fetchMessages");
   }
 
   @SubscribeMessage('addMessage')
   async addMessage(client: Socket, payload: MessageModel): Promise<void> {
+    this.logger.onStartEvent("addMessage");
     try {
-      console.log('payload', payload);
       const connectedRoom = await this.userService.getUserRoom(payload.userId);
       if (!connectedRoom.id) {
         throw Error("You need to connect to room");
@@ -44,7 +49,8 @@ export class MessageGateway {
         await this.messageService.addMessage(connectedRoom.id, message)
       );
     } catch (error) {
-      console.log('error', error);
+      this.logger.error(error.message);
     }
+    this.logger.onLeaveEvent("addMessage");
   }
 }

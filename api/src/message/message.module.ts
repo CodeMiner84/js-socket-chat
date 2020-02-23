@@ -5,8 +5,6 @@ import {UserService} from "../user/user.service";
 import {RoomService} from "../room/room.service";
 
 @Module({
-  exports: [],
-  imports: [],
   providers: [MessageGateway, MessageService, RoomService, UserService]
 })
 export class MessageModule {}

@@ -2,13 +2,15 @@ import { Injectable } from '@nestjs/common';
 import {redis} from "../redis";
 import UserModel from "./user.model";
 import {RoomService} from "../room/room.service";
+import Logger from "../common/logger.service";
 
 @Injectable()
 export class UserService {
+  private logger: Logger = new Logger('UserService');
+
   constructor(
     private readonly roomService: RoomService
-  ) {
-  }
+  ) {}
 
   async getAllUsers(): Promise<UserModel[]> {
     const users = await redis.smembers('user');
@@ -34,8 +36,8 @@ export class UserService {
       });
 
       return activeUsers.filter((user: any) => undefined !== user).map((user: string) => JSON.parse(user));
-    } catch (e) {
-      console.log('e.message', e.message);
+    } catch (error) {
+      this.logger.error(error.message);
     }
   }
 

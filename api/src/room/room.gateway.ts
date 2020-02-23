@@ -5,13 +5,12 @@ import InputModel from "../common/input.model";
 import ChangeRoomModel from "./change-room.model";
 import RoomModel from "./room.model";
 import {UserService} from "../user/user.service";
-import * as uuidv4 from "uuid/v4";
-import MessageModel from "../message/message.model";
-import MessageFactory from "../message/message.factory";
-import UserModel from "../user/user.model";
+import Logger from "../common/logger.service";
 
 @WebSocketGateway()
 export class RoomGateway {
+  private logger: Logger = new Logger('RoomGateway');
+
   constructor(
     private readonly roomService: RoomService,
     private readonly userService: UserService
@@ -19,16 +18,21 @@ export class RoomGateway {
 
   @SubscribeMessage('addRoom')
   async setUser(client: Socket, payload: InputModel): Promise<void> {
+    this.logger.onStartEvent("addRoom");
     client.emit('roomAdded', await this.roomService.addRoom(payload));
+    this.logger.onLeaveEvent("addRoom");
   }
 
   @SubscribeMessage('getRooms')
   async getRooms(client: Socket): Promise<void> {
+    this.logger.onStartEvent("getRooms");
     client.emit('roomsFetched', await this.roomService.getRooms());
+    this.logger.onLeaveEvent("getRooms");
   }
 
   @SubscribeMessage('changeRoom')
   async function (client: Socket, input: ChangeRoomModel) {
+    this.logger.onStartEvent("changeRoom");
     try {
       let room: RoomModel = await this.roomService.getRoom(input.roomId as string);
 
@@ -50,9 +54,10 @@ export class RoomGateway {
       await this.roomService.broadcastConnectedMessage(client, room.id, currentRoom, user);
 
     } catch (error) {
-      console.log('error', error);
       client.emit('roomChangeError');
+      this.logger.error(error.message);
     }
+    this.logger.onLeaveEvent("changeRoom");
   }
 }
 

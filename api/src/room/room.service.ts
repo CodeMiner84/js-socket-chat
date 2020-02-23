@@ -5,16 +5,19 @@ import InputModel from "../common/input.model";
 import {Socket} from "socket.io";
 import UserModel from "../user/user.model";
 import MessageFactory from "../message/message.factory";
+import Logger from "../common/logger.service";
 
 @Injectable()
 export class RoomService {
+  private logger: Logger = new Logger('RoomService');
+
   async addRoom(payload: InputModel): Promise<RoomModel[]> {
     const room = new RoomModel(payload.value);
 
     try {
       await redis.sadd('room', JSON.stringify(room));
     } catch (error) {
-      console.log('error.message', error.message);
+      this.logger.error(error.message);
     }
 
     return this.getRooms();
@@ -26,7 +29,7 @@ export class RoomService {
 
       return rooms.map((room: string) => JSON.parse(room));
     } catch (error) {
-      console.log('error.message', error.message);
+      this.logger.error(error.message);
     }
   }
 
