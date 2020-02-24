@@ -1,16 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import {redis} from "../redis";
-import UserModel from "./user.model";
-import {RoomService} from "../room/room.service";
-import Logger from "../common/logger.service";
+import { redis } from '../redis';
+import UserModel from './user.model';
+import { RoomService } from '../room/room.service';
+import Logger from '../common/logger.service';
 
 @Injectable()
 export class UserService {
   private logger: Logger = new Logger('UserService');
 
-  constructor(
-    private readonly roomService: RoomService
-  ) {}
+  constructor(private readonly roomService: RoomService) {}
 
   async getAllUsers(): Promise<UserModel[]> {
     const users = await redis.smembers('user');
@@ -22,20 +20,29 @@ export class UserService {
     try {
       const getAllConnectedUsers: any = await redis.hgetall('user_room');
       const roomKeys = Object.values(getAllConnectedUsers);
-      const results: any = await Object.keys(getAllConnectedUsers).map(async (user: any, index: number) => {
-        if (roomKeys[index] === roomId.roomId) {
-          const users = await redis.sscan('user', 0, 'match', `{\"id\":\"${user}*`);
-          if (undefined !== users[1][0]) {
-            return users[1][0];
+      const results: any = await Object.keys(getAllConnectedUsers).map(
+        async (user: any, index: number) => {
+          if (roomKeys[index] === roomId.roomId) {
+            const users = await redis.sscan(
+              'user',
+              0,
+              'match',
+              `{\"id\":\"${user}*`,
+            );
+            if (undefined !== users[1][0]) {
+              return users[1][0];
+            }
           }
-        }
-      });
+        },
+      );
 
-      const activeUsers = await Promise.all(results).then((completed) => {
+      const activeUsers = await Promise.all(results).then(completed => {
         return completed;
       });
 
-      return activeUsers.filter((user: any) => undefined !== user).map((user: string) => JSON.parse(user));
+      return activeUsers
+        .filter((user: any) => undefined !== user)
+        .map((user: string) => JSON.parse(user));
     } catch (error) {
       this.logger.error(error.message);
     }
@@ -54,7 +61,7 @@ export class UserService {
       return user.id === userId;
     });
     if (!user) {
-      throw Error("User does not exists");
+      throw Error('User does not exists');
     }
 
     return user[0];
@@ -65,7 +72,7 @@ export class UserService {
   }
 
   async getUserRoom(userId: string): Promise<any> {
-    const userRoomId = await redis.hget('user_room', userId) as string;
+    const userRoomId = (await redis.hget('user_room', userId)) as string;
 
     return this.roomService.getRoom(userRoomId);
   }

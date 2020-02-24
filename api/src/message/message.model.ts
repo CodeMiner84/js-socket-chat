@@ -1,4 +1,4 @@
-import * as uuidv4 from "uuid/v4";
+import * as uuidv4 from 'uuid/v4';
 
 export default class MessageModel {
   public id: string;
@@ -12,13 +12,13 @@ export default class MessageModel {
     message: string,
     userId: string,
     userName: string,
-    info?: boolean
+    info?: boolean,
   ) {
     this.id = uuidv4();
     this.message = message;
     this.userId = userId;
     this.userName = userName;
-    this.created = (new Date()).toLocaleString();
+    this.created = new Date().toLocaleString();
     this.info = info || false;
   }
 }

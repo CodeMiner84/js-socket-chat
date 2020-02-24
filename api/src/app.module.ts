@@ -6,6 +6,6 @@ import { MessageModule } from './message/message.module';
 
 @Module({
   imports: [EventsModule, RoomModule, UserModule, MessageModule],
-  providers: []
+  providers: [],
 })
 export class AppModule {}

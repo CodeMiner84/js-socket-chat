@@ -1,4 +1,4 @@
-import {Logger as NestLogger} from "@nestjs/common";
+import { Logger as NestLogger } from '@nestjs/common';
 
 export default class Logger extends NestLogger {
   onStartEvent(eventName: string) {
